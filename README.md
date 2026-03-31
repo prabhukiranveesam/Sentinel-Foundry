@@ -1,6 +1,6 @@
 <img src="assets/banner.svg" alt="Sentinel Foundry — AI-Powered Microsoft Sentinel Intelligence" width="100%"/>
 
-# Sentinel Foundry — MCP Agent
+# Sentinel Foundry — MCP Agent (Preview)
 
 **Sentinel Foundry** is an AI intelligence layer for Microsoft Sentinel, delivered as a live [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server.
 
