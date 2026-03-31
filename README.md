@@ -254,4 +254,4 @@ Each connection is fully isolated — your session credentials and workspace dat
 
 ---
 
-*For access or enterprise deployment enquiries, contact the team via the repository.*
+*For access or enterprise deployment enquiries, contact me via the repository.*
