@@ -140,9 +140,47 @@ The agent exposes **38 tools** across every dimension of Sentinel operations. As
 ---
 
 ## Connect in 2 minutes
+To add the Sentinel Foundry collection, first set up the MCP server interface. Follow the step-by-step instructions for the compatible AI-powered code editors and agent-building platforms.
+The Sentinel Foundry collection is hosted at the following URL:
+```json
+
+  https://mcp.kiranlab.co.uk/sentinel
+
+```
 
 ### VS Code Copilot (recommended)
+To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
 
+1. Add MCP server:
+
+   a. Press Ctrl + Shift + P then type or choose MCP: Add Server.
+
+   <img width="602" height="112" alt="mcp-get-started-add-server" src="https://github.com/user-attachments/assets/541c3249-8224-4e89-9f6f-86b49e97e433" />
+   
+   b. Choose HTTP (HTTP or Server-Sent Events).
+
+   <img width="599" height="204" alt="mcp-get-started-http" src="https://github.com/user-attachments/assets/d2af653f-0e8d-4def-8aa1-cc31b7a0b839" />
+   
+   c. Enter the URL as `https://mcp.kiranlab.co.uk/sentinel`, which can add our custom tools, then press Enter.
+
+   d. Assign a friendly Server ID (for example, Sentinel Foundry - MCP server)
+   
+   e. Choose whether to make the server available in all Visual Studio Code workspaces or just the current one.
+   
+3. Allow authentication. When prompted, select Allow to authenticate with an account that has at least the Microsoft Sentinel reader role.
+
+   <img width="615" height="138" alt="mcp-get-started-authenticate" src="https://github.com/user-attachments/assets/3b54d1ac-b70e-499a-810b-8f4e8103078e" />
+   
+4. Open Visual Studio Code's chat. Select View > Chat, select the Toggle Chat icon  beside the search bar, or press Ctrl + Alt + I.
+5. Verify connection. Set the chat to Agent mode, then confirm by selecting the Configure Tools icon that you see added under the MCP server.
+
+   <img width="687" height="282" alt="mcp-get-started-04" src="https://github.com/user-attachments/assets/919c267b-bb62-46a3-9cc3-174d2073768d" />
+   
+6. Type: `discover_workspaces` — the agent auto-detects your Sentinel workspace from your signed-in Azure account
+7. Start asking questions
+
+   (or alternatively)
+   
 1. Open **Settings** (`Ctrl+,`) → search **MCP**
 2. Click **Edit in settings.json** and add:
 
@@ -157,7 +195,6 @@ The agent exposes **38 tools** across every dimension of Sentinel operations. As
   ]
 }
 ```
-
 3. Open **Copilot Chat** → switch to **Agent mode** (the `@` icon)
 4. Type: `discover_workspaces` — the agent auto-detects your Sentinel workspace from your signed-in Azure account
 5. Start asking questions
