@@ -29,7 +29,6 @@ The agent exposes **38 tools** across every dimension of Sentinel operations. As
 <details>
 <summary><strong>🔎 Schema & Tables (5 tools)</strong></summary>
 
-
 | Tool | What it does |
 |---|---|
 | `list_tables` | Lists all Log Analytics tables in your workspace |
@@ -37,7 +36,6 @@ The agent exposes **38 tools** across every dimension of Sentinel operations. As
 | `sample_table` | Shows recent sample rows from a table |
 | `classify_tables` | Categorises tables by security domain |
 | `get_table_freshness` | Checks when each data source last ingested |
-
 
 </details>
 
