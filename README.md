@@ -144,7 +144,7 @@ To add the Sentinel Foundry collection, first set up the MCP server interface. F
 The Sentinel Foundry collection is hosted at the following URL:
 ```json
 
-  https://mcp.kiranlab.co.uk/sentinel
+https://mcp.kiranlab.co.uk/sentinel
 
 ```
 
