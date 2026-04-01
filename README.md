@@ -210,7 +210,7 @@ Add to your `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "sentinel-foundry": {
+    "Sentinel Foundry - MCP Server": {
       "command": "npx",
       "args": [
         "mcp-remote",
@@ -257,7 +257,7 @@ Sentinel Foundry MCP Server
 Structured response → AI formats → Natural language answer
 ```
 
-Every answer comes from **live Azure APIs** — not training data, not estimates. The agent reads your actual workspace state.
+Every answer comes from **live Azure APIs** — not from training data or estimates. The agent reads your actual workspace state.
 
 ---
 
