@@ -188,7 +188,7 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
 {
   "github.copilot.chat.mcp.servers": [
     {
-      "name": "Sentinel Foundry",
+      "name": "Sentinel Foundry - MCP Server",
       "url": "https://mcp.kiranlab.co.uk/sentinel",
       "type": "http"
     }
