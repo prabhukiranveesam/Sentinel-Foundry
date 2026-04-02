@@ -163,7 +163,7 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
 
    <img width="599" height="204" alt="mcp-get-started-http" src="https://github.com/user-attachments/assets/d2af653f-0e8d-4def-8aa1-cc31b7a0b839" />
    
-   c. Enter the URL as `https://mcp.kiranlab.co.uk/sentinel`, which can add our custom tools, then press Enter.
+   c. Enter the URL as `https://mcp.kiranlab.co.uk/sentinel` to add our custom tools, then press Enter.
 
    d. Assign a friendly Server ID (for example, Sentinel Foundry - MCP server)
    
