@@ -6,11 +6,13 @@
 
 Connect directly from VS Code Copilot Chat or Claude Desktop and talk to your Sentinel workspace in plain English — no dashboards, no KQL required.
 
+`Note: This is currently in the final phases of testing, but the public preview will be available from 30/04/2026`
+
 ---
 
 ## What can it do?
 
-The agent exposes **38 tools** across every dimension of Sentinel operations. Ask questions like a conversation:
+The agent exposes **38 tools** across every dimension of Sentinel operations. Ask questions like in a conversation:
 
 | What you say | What the agent does |
 |---|---|
