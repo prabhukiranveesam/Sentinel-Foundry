@@ -12,17 +12,20 @@ Connect directly from VS Code Copilot Chat or Claude Desktop and talk to your Se
 
 ## What can it do?
 
-The agent exposes **38 tools** across every dimension of Sentinel operations. Ask questions like in a conversation:
+The agent exposes **43 tools** across every dimension of Sentinel operations, including a reasoning engine that diagnoses *why* your workspace is in its current state. Ask questions like in a conversation:
 
 | What you say | What the agent does |
 |---|---|
 | *"What are our top cost drivers this month?"* | Reads Azure billing data, breaks down ingestion GB and spend by table |
-| *"Do we have any detection gaps against MITRE ATT&CK?"* | Maps active rules to the ATT&CK framework, surfaces uncovered techniques |
+| *"Do we have any detection gaps against MITRE ATT&CK?"* | Maps all 14 ATT&CK v18 tactics across 77 techniques, surfaces uncovered areas |
 | *"Which detection rules are causing the most noise?"* | Analyses 30 days of alert data, finds high-FP rules, provides KQL patches |
 | *"Give me our full security health score"* | Scores Data, Detection, Automation, Cost, and Operations pillars |
 | *"What workbooks are we missing?"* | Cross-references your data sources against workbook coverage |
 | *"Suggest automations we should build"* | Analyses incident patterns, returns Logic App ARM templates ready to deploy |
-| *"Generate a full security posture report"* | Produces a complete PDF-ready report covering all pillars |
+| *"Generate a full security posture report"* | Produces a self-contained HTML report with score rings, metric cards, and print-to-PDF support |
+| *"Why does our workspace score so low?"* | Runs root-cause diagnosis across all pillars — 10 correlation rules identify the real reasons |
+| *"Would we detect a ransomware attack right now?"* | Simulates a named attack scenario against live data, returns pass/fail per MITRE technique |
+| *"Write a board summary of our security posture"* | Generates an audience-calibrated narrative: board / CISO / SOC / technical |
 
 ---
 
@@ -33,11 +36,11 @@ The agent exposes **38 tools** across every dimension of Sentinel operations. As
 
 | Tool | What it does |
 |---|---|
-| `list_tables` | Lists all Log Analytics tables in your workspace |
+| `list_tables` | Lists all Log Analytics tables in your workspace with row counts and last-updated timestamps |
 | `get_schema` | Returns full column schema for any table |
-| `sample_table` | Shows recent sample rows from a table |
-| `classify_tables` | Categorises tables by security domain |
-| `get_table_freshness` | Checks when each data source last ingested |
+| `get_sample_logs` | Returns recent sample rows from a table for rule-writing context |
+| `list_data_connectors` | Lists all configured data connectors with health status |
+| `classify_tables` | Categorises tables by security domain (Identity, Endpoint, Network, Cloud, Application) |
 
 </details>
 
@@ -46,24 +49,41 @@ The agent exposes **38 tools** across every dimension of Sentinel operations. As
 
 | Tool | What it does |
 |---|---|
-| `analyze_sentinel_health` | Full health report: connectors, ingestion, rule status |
-| `calculate_security_score` | Weighted score across 5 pillars with evidence |
-| `check_data_connectors` | Connector status and freshness |
-| `get_ingestion_anomalies` | Detects unusual spikes or drops in table ingestion |
+| `analyze_sentinel_health` | Full health report: connector gaps, disabled rules, stale data, misconfigurations |
+| `calculate_security_score` | Weighted Secure Vision Score (0–100) across 6 pillars with per-pillar evidence |
+| `run_daily_assessment` | Lightweight daily posture check — faster snapshot than full score calculation |
+| `get_score_trend` | Returns score history for trend analysis over N days |
 
 </details>
 
 <details>
-<summary><strong>🛡️ Detection & MITRE ATT&CK (6 tools)</strong></summary>
+<summary><strong>🧠 Reasoning & Intelligence (5 tools)</strong></summary>
 
 | Tool | What it does |
 |---|---|
-| `list_detection_rules` | All analytic rules with status and MITRE mapping |
-| `analyze_detection_coverage` | MITRE ATT&CK coverage heat map |
-| `detect_gaps` | Gaps vs industry baseline per tactic |
-| `score_detection_quality` | Per-rule quality scores (KQL, severity, entity mapping) |
-| `analyze_incidents` | Incident trends, MTTR, top alert sources + tuning signals |
-| `tune_detection_rules` | 30-day noise + false-positive analysis with KQL patches |
+| `diagnose_workspace` | **Primary reasoning tool** — runs all modules in parallel, applies 10 correlation rules to identify root causes with score-impact estimates |
+| `analyze_value_efficiency` | Cross-references ingestion cost against active detection rules — exposes tables paid for but not detected against |
+| `simulate_attack` | Maps 77 MITRE ATT&CK v18 techniques across 11 scenarios to available tables and enabled rules — returns a readiness verdict |
+| `generate_narrative` | Produces audience-calibrated narrative from session findings: board / CISO / SOC / technical |
+| `get_session_context` | Returns all findings cached this session so subsequent prompts avoid re-querying Azure |
+
+</details>
+
+<details>
+<summary><strong>🛡️ Detection & MITRE ATT&CK (10 tools)</strong></summary>
+
+| Tool | What it does |
+|---|---|
+| `list_detection_rules` | All analytic rules with status, MITRE mapping, and optional quality filter |
+| `analyze_detection_coverage` | Full MITRE ATT&CK v18 coverage heatmap across all 14 enterprise tactics |
+| `detect_gaps` | Identifies highest-priority uncovered tactics with business-impact explanation |
+| `score_detection_quality` | Per-rule quality scores across 5 dimensions (KQL, severity, entity mapping, MITRE, freshness) |
+| `analyze_incidents` | Incident volume, MTTR, false-positive rate, top noisy rules, closure patterns |
+| `tune_detection_rules` | 30-day alert + FP cross-reference → specific KQL exclusion patches with real entity values |
+| `suggest_detection_rules` | Generates ready-to-deploy KQL rules for the top uncovered MITRE techniques |
+| `suggest_hunting_queries` | Returns runnable KQL hunting queries for tables available in your workspace |
+| `generate_detection_rule` | AI-generates a new Sentinel analytics rule (name, KQL, severity, MITRE mapping) |
+| `generate_kql` | Generates ad-hoc KQL for any security investigation question |
 
 </details>
 
@@ -72,49 +92,56 @@ The agent exposes **38 tools** across every dimension of Sentinel operations. As
 
 | Tool | What it does |
 |---|---|
-| `analyze_cost` | Ingestion cost breakdown by table (actual Azure billing data) |
-| `detect_waste` | Noisy, low-value, and duplicate tables |
-| `suggest_cost_optimizations` | Actionable savings with estimated monthly reduction |
+| `analyze_cost` | Reads actual billed GB from Azure Usage — monthly estimate, per-table breakdown, regional pricing |
+| `detect_waste` | Identifies over-ingested tables, verbose sources, and zero-value data streams |
+| `suggest_cost_optimizations` | Ranked savings plan with £ estimates and effort ratings |
 
 </details>
 
 <details>
-<summary><strong>📊 Workbooks (3 tools)</strong></summary>
+<summary><strong>📊 Workbooks (4 tools)</strong></summary>
 
 | Tool | What it does |
 |---|---|
-| `list_workbooks` | All deployed Sentinel workbooks |
-| `analyze_workbooks` | Coverage gaps and stale workbooks |
-| `suggest_workbooks` | Recommended workbooks to build based on your data sources |
+| `list_workbooks` | All deployed Sentinel workbooks with metadata |
+| `analyze_workbooks` | Coverage gaps and stale workbook review |
+| `suggest_workbooks` | Recommended workbooks to build based on available data sources |
+| `generate_workbook` | Generates a Sentinel workbook ARM template for a given use case |
 
 </details>
 
 <details>
-<summary><strong>🤖 Recommendations (10 tools)</strong></summary>
+<summary><strong>🤖 Automation & Response (4 tools)</strong></summary>
 
 | Tool | What it does |
 |---|---|
-| `suggest_detection_rules` | New rules tailored to your available tables + MITRE gaps |
-| `suggest_hunting_queries` | Ready-to-run KQL hunting queries for your data |
-| `suggest_automations` | Logic App ARM templates for your top incident scenarios |
-| `suggest_notebooks` | Jupyter notebook scenarios ready for your data sources |
-| `suggest_data_connectors` | Connectors you should enable based on your environment |
-| `suggest_retention_policies` | Table-by-table retention optimisation |
-| `assess_table` | Deep assessment of a specific table's health and value |
-| `get_recommendations` | Prioritised improvement recommendations across all pillars |
-| `get_quick_wins` | High-impact, low-effort improvements to action today |
-| `assess_compliance_posture` | Regulatory alignment check (NIST, ISO 27001, CIS) |
+| `suggest_automations` | Reads incident history, scores scenarios, returns top 3 with ready-to-deploy Logic App ARM templates |
+| `suggest_notebooks` | Checks available tables and returns which Jupyter notebook scenarios are ready to run |
+| `generate_playbook` | Generates a Logic App playbook ARM template for a named incident response scenario |
+| `generate_notebook` | Generates a Jupyter notebook for a named investigation workflow |
 
 </details>
 
 <details>
 <summary><strong>📋 Reporting (3 tools)</strong></summary>
 
+All reports default to **self-contained HTML** — professional design with score rings, metric cards, and print-friendly CSS. After every report the agent offers PDF export instructions (File → Print → Save as PDF).
+
 | Tool | What it does |
 |---|---|
-| `generate_posture_report` | Full security posture report across all pillars |
-| `generate_executive_summary` | Board-level summary with risk rating and key findings |
-| `generate_compliance_report` | Compliance-focused report mapped to a chosen framework |
+| `generate_executive_report` | Full executive report — score, findings, risk assessment, recommendations |
+| `generate_soc_report` | SOC operations report — incident analysis, alert fatigue, tuning recommendations |
+| `generate_engineering_report` | Engineering deep-dive — detection coverage, rule quality, KQL improvements |
+
+</details>
+
+<details>
+<summary><strong>⚙️ Improvements (2 tools)</strong></summary>
+
+| Tool | What it does |
+|---|---|
+| `suggest_improvements` | General improvement recommendations across all pillars, prioritised by impact and effort |
+| `assess_table` | Deep assessment of a single table — coverage, quality, cost contribution |
 
 </details>
 
@@ -123,8 +150,8 @@ The agent exposes **38 tools** across every dimension of Sentinel operations. As
 
 | Tool | What it does |
 |---|---|
-| `get_monitoring_dashboard` | Live SOC dashboard: incidents, connectors, health |
-| `get_alert_trends` | Alert volume trends and anomaly detection |
+| `run_daily_assessment` | Lightweight daily posture check with trend comparison |
+| `get_score_trend` | Score history and trend analysis over a configurable number of days |
 
 </details>
 
@@ -134,7 +161,7 @@ The agent exposes **38 tools** across every dimension of Sentinel operations. As
 | Tool | What it does |
 |---|---|
 | `discover_workspaces` | Auto-detects all Sentinel workspaces the signed-in user has access to |
-| `set_workspace` | Manually connect to a specific workspace by name |
+| `set_workspace` | Manually connect to a specific workspace by subscriptionId, resourceGroup, name |
 | `get_workspace` | Shows which workspace is currently active |
 
 </details>
@@ -251,15 +278,23 @@ VS Code Copilot / Claude Desktop
      ▼
 Sentinel Foundry MCP Server
      │  (authenticates with your Azure identity)
-     ├──► Microsoft Sentinel API  (rules, incidents, connectors)
-     ├──► Log Analytics API       (KQL queries, schema, ingestion data)
-     └──► Azure Resource Manager  (workspace config, billing, workbooks)
+     │
+     ├── Analytical Modules ──────────────────────────────────┐
+     │   ├──► Microsoft Sentinel API  (rules, incidents)      │
+     │   ├──► Log Analytics API       (KQL, schema, billing)  │
+     │   └──► Azure Resource Manager  (config, workbooks)     │
+     │                                                        │
+     └── Reasoning Layer ◄────────────────────────────────────┘
+         ├── Root Cause Engine  (10 correlation rules)
+         ├── Attack Simulation  (77 MITRE v18 techniques)
+         ├── Value Efficiency   (cost vs detection yield)
+         └── Narrative Engine   (board/CISO/SOC/technical)
      │
      ▼
-Structured response → AI formats → Natural language answer
+Structured response → HTML report / narrative / tool output
 ```
 
-Every answer comes from **live Azure APIs** — not from training data or estimates. The agent reads your actual workspace state.
+Every answer comes from **live Azure APIs** — not from training data or estimates. The reasoning layer then correlates findings to explain *why*, not just *what*.
 
 ---
 
@@ -283,11 +318,27 @@ Every answer comes from **live Azure APIs** — not from training data or estima
 **Compliance check:**
 > *"How do we align with NIST CSF? Where are the biggest gaps?"*
 
+**Root-cause diagnosis:**
+> *"Why does our Secure Vision Score keep dropping? Walk me through the root causes and prioritise what to fix first."*
+
+**Attack simulation:**
+> *"Simulate a ransomware attack against our workspace. Would we detect each technique? Where are the gaps?"*
+
+**HTML report:**
+> *"Generate a full engineering report for our security team as an HTML file they can open in a browser and print."*
+
+**Narrative for the board:**
+> *"Write a plain-English board summary of our current security posture. No technical jargon."*
+
 ---
 
 ## About
 
 Sentinel Foundry is built on the [Model Context Protocol](https://modelcontextprotocol.io) — the open standard for connecting AI assistants to live data sources. It runs as a hardened, session-isolated HTTPS service with full Azure identity integration.
+
+**43 tools. 11 guided prompts. Full MITRE ATT&CK v18 coverage across all 14 enterprise tactics.**
+
+The reasoning engine runs all analytical modules in parallel, applies 10 correlation rules, and tells you *why* your workspace is in its current state — not just what the numbers are.
 
 Each connection is fully isolated — your session credentials and workspace data are never shared across users.
 
