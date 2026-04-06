@@ -205,7 +205,7 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
 
    <img width="687" height="282" alt="mcp-get-started-04" src="https://github.com/user-attachments/assets/919c267b-bb62-46a3-9cc3-174d2073768d" />
    
-6. Type: `discover_workspaces` — the agent auto-detects your Sentinel workspace from your signed-in Azure account
+6. The agent auto-detects your Sentinel workspace from your signed-in Azure account
 7. Start asking questions
 
    (or alternatively)
@@ -225,7 +225,7 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
 }
 ```
 3. Open **Copilot Chat** → switch to **Agent mode** (the `@` icon)
-4. Type: `discover_workspaces` — the agent auto-detects your Sentinel workspace from your signed-in Azure account
+4. The agent auto-detects your Sentinel workspace from your signed-in Azure account
 5. Start asking questions
 
 > **Authentication:** The agent uses your existing VS Code Azure sign-in. No extra configuration needed — your Azure RBAC controls what you can access.
