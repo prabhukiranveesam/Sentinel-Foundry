@@ -196,7 +196,7 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
    
    e. Choose whether to make the server available in all Visual Studio Code workspaces or just the current one.
    
-3. Allow authentication. When prompted, select Allow to authenticate with an account that has at least the **Microsoft Sentinel Reader** and **Log Analytics Reader** roles.
+3. Allow authentication. When prompted, select Allow to authenticate with an account that has **Microsoft Sentinel Reader** and **Security Reader** roles.
 
    <img width="615" height="138" alt="mcp-get-started-authenticate" src="https://github.com/user-attachments/assets/3b54d1ac-b70e-499a-810b-8f4e8103078e" />
    
@@ -288,17 +288,17 @@ Replace `YOUR_API_KEY` with the key provided to you.
 
 ## Required Azure Permissions
 
-### Azure RBAC (required for all users)
+Two Azure built-in roles cover everything the agent needs:
 
-| Role | Scope | Purpose |
+| Role | Scope | Covers |
 |---|---|---|
-| **Microsoft Sentinel Reader** | Workspace resource group | Read incidents, analytic rules, connectors, and workspace data |
-| **Log Analytics Reader** | Log Analytics workspace | Execute KQL queries against workspace tables |
-| **Reader** | Subscription or resource group | Auto-discover accessible Sentinel workspaces |
-| **Log Analytics Contributor** *(optional)* | Workspace | Billing plan lookup in cost analysis |
+| **Microsoft Sentinel Reader** | Resource group containing the workspace | Analytic rules, incidents, connectors, workbooks, watchlists, workspace query access |
+| **Security Reader** | Subscription or resource group | Log Analytics table queries, workspace discovery, resource metadata |
 
-> **Minimum required:** Microsoft Sentinel Reader + Log Analytics Reader + Reader (subscription scope).  
-> The agent performs **read-only operations** — Contributor or Owner is not required.
+> **That's it.** No additional roles are needed. Log Analytics Reader, Log Analytics Contributor, and Reader are all implicitly covered by this combination.
+>
+> **Security Reader** includes `Microsoft.OperationalInsights/workspaces/*/read` (covering all KQL queries and table enumeration) and `Microsoft.Resources/subscriptions/resourceGroups/read` (covering workspace auto-discovery).  
+> **Microsoft Sentinel Reader** covers all Sentinel API operations — rules, incidents, connectors, workbooks, and billing usage data.
 
 ### Microsoft Graph (Defender XDR only, optional)
 
@@ -306,7 +306,7 @@ Replace `YOUR_API_KEY` with the key provided to you.
 |---|---|
 | `ThreatHunting.Read.All` | Run Advanced Hunting queries against Defender XDR tables via Graph Security API |
 
-Obtain this permission by acquiring a Graph token (see VS Code Copilot → Defender XDR above). The ARM token for Sentinel (via VS Code sign-in) and the Graph token for Defender XDR are entirely separate — you only need the Graph token if you want to query Defender data.
+This is only needed if you want to query Defender XDR tables (`DeviceEvents`, `AlertInfo`, etc.) alongside your Sentinel workspace. See the Defender XDR section for setup instructions.
 
 ---
 
