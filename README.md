@@ -36,9 +36,9 @@ The agent exposes **43 tools** across every dimension of Sentinel operations, in
 
 | Tool | What it does |
 |---|---|
-| `list_tables` | Lists all Log Analytics tables in your workspace with row counts and last-updated timestamps |
-| `get_schema` | Returns full column schema for any table |
-| `get_sample_logs` | Returns recent sample rows from a table for rule-writing context |
+| `list_tables` | Lists all Log Analytics tables in your workspace with row counts and last-updated timestamps — plus all 38 Defender XDR tables when `X-Security-Token` is configured |
+| `get_schema` | Returns full column schema for any table (Log Analytics or Defender XDR) |
+| `get_sample_logs` | Returns recent sample rows from a table — progressive fallback P1D→P7D→P30D→P90D for LA tables; 7-day Timestamp filter via Graph API for Defender XDR tables |
 | `list_data_connectors` | Lists all configured data connectors with health status |
 | `classify_tables` | Categorises tables by security domain (Identity, Endpoint, Network, Cloud, Application) |
 
@@ -196,7 +196,7 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
    
    e. Choose whether to make the server available in all Visual Studio Code workspaces or just the current one.
    
-3. Allow authentication. When prompted, select Allow to authenticate with an account that has at least the Microsoft Sentinel reader role.
+3. Allow authentication. When prompted, select Allow to authenticate with an account that has at least the **Microsoft Sentinel Reader** and **Log Analytics Reader** roles.
 
    <img width="615" height="138" alt="mcp-get-started-authenticate" src="https://github.com/user-attachments/assets/3b54d1ac-b70e-499a-810b-8f4e8103078e" />
    
@@ -215,13 +215,15 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
 
 ```json
 {
-  "github.copilot.chat.mcp.servers": [
-    {
-      "name": "Sentinel Foundry - MCP Server",
-      "url": "https://mcp.kiranlab.co.uk/sentinel",
-      "type": "http"
+  "mcp": {
+    "servers": {
+      "sentinel": {
+        "name": "Sentinel Foundry - MCP Server",
+        "url": "https://mcp.kiranlab.co.uk/sentinel",
+        "type": "http"
+      }
     }
-  ]
+  }
 }
 ```
 3. Open **Copilot Chat** → switch to **Agent mode** (the `@` icon)
@@ -229,6 +231,34 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
 5. Start asking questions
 
 > **Authentication:** The agent uses your existing VS Code Azure sign-in. No extra configuration needed — your Azure RBAC controls what you can access.
+
+**Optional — Defender XDR Advanced Hunting:**
+
+To also query Defender XDR tables (`DeviceEvents`, `AlertInfo`, `IdentityLogonEvents`, `EmailEvents`, etc.), add your Microsoft Graph token:
+
+```bash
+# Get a Graph token with ThreatHunting.Read.All
+az account get-access-token --resource https://graph.microsoft.com --query accessToken -o tsv
+```
+
+Add the `headers` key to your MCP server entry in `settings.json`:
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "sentinel": {
+        "name": "Sentinel Foundry - MCP Server",
+        "url": "https://mcp.kiranlab.co.uk/sentinel",
+        "type": "http",
+        "headers": {
+          "X-Security-Token": "<graph-token-here>"
+        }
+      }
+    }
+  }
+}
+```
 
 ---
 
@@ -258,12 +288,25 @@ Replace `YOUR_API_KEY` with the key provided to you.
 
 ## Required Azure Permissions
 
-| Role | Purpose |
+### Azure RBAC (required for all users)
+
+| Role | Scope | Purpose |
+|---|---|---|
+| **Microsoft Sentinel Reader** | Workspace resource group | Read incidents, analytic rules, connectors, and workspace data |
+| **Log Analytics Reader** | Log Analytics workspace | Execute KQL queries against workspace tables |
+| **Reader** | Subscription or resource group | Auto-discover accessible Sentinel workspaces |
+| **Log Analytics Contributor** *(optional)* | Workspace | Billing plan lookup in cost analysis |
+
+> **Minimum required:** Microsoft Sentinel Reader + Log Analytics Reader + Reader (subscription scope).  
+> The agent performs **read-only operations** — Contributor or Owner is not required.
+
+### Microsoft Graph (Defender XDR only, optional)
+
+| Permission | Purpose |
 |---|---|
-| **Microsoft Sentinel Reader** | Read incidents, rules, and workspace data (minimum) |
-| **Log Analytics Reader** | Query Log Analytics tables |
-| **Reader** | Read subscription and resource metadata |
-| **Log Analytics Contributor** *(optional)* | Required for billing plan lookup in cost analysis |
+| `ThreatHunting.Read.All` | Run Advanced Hunting queries against Defender XDR tables via Graph Security API |
+
+Obtain this permission by acquiring a Graph token (see VS Code Copilot → Defender XDR above). The ARM token for Sentinel (via VS Code sign-in) and the Graph token for Defender XDR are entirely separate — you only need the Graph token if you want to query Defender data.
 
 ---
 
@@ -318,6 +361,9 @@ Every answer comes from **live Azure APIs** — not from training data or estima
 **Compliance check:**
 > *"How do we align with NIST CSF? Where are the biggest gaps?"*
 
+**Defender XDR threat hunting:**
+> *"Show me PowerShell executions from DeviceProcessEvents in the last 24 hours. Are any of these processes associated with active alerts?"*
+
 **Root-cause diagnosis:**
 > *"Why does our Secure Vision Score keep dropping? Walk me through the root causes and prioritise what to fix first."*
 
@@ -329,6 +375,26 @@ Every answer comes from **live Azure APIs** — not from training data or estima
 
 **Narrative for the board:**
 > *"Write a plain-English board summary of our current security posture. No technical jargon."*
+
+---
+
+## Defender XDR Advanced Hunting
+
+In addition to classic Sentinel Log Analytics, the agent supports **Microsoft Defender XDR** as a second data plane — enabling unified queries across both platforms in the same conversation.
+
+### Supported Tables (38)
+
+| Domain | Tables |
+|---|---|
+| **Device** | `DeviceEvents`, `DeviceProcessEvents`, `DeviceNetworkEvents`, `DeviceFileEvents`, `DeviceRegistryEvents`, `DeviceLogonEvents`, `DeviceImageLoadEvents`, `DeviceInfo`, `DeviceNetworkInfo` |
+| **Alerts & Incidents** | `AlertEvidence`, `AlertInfo` |
+| **Email** | `EmailEvents`, `EmailAttachmentInfo`, `EmailUrlInfo`, `EmailPostDeliveryEvents` |
+| **Identity** | `IdentityLogonEvents`, `IdentityQueryEvents`, `IdentityInfo`, `IdentityDirectoryEvents` |
+| **Cloud Apps** | `CloudAppEvents`, `AppFileEvents` |
+| **Exposure** | `ExposureGraphNodes`, `ExposureGraphEdges` |
+| **Behaviour & AAD** | `BehaviorEntities`, `BehaviorInfo`, `AADSignInEventsBeta`, `AADSpnSignInEventsBeta` |
+
+Tool routing is **automatic** — when a KQL query or schema request targets a Defender XDR table name, it is routed to `POST https://graph.microsoft.com/v1.0/security/runHuntingQuery`. No tool changes or configuration needed beyond supplying the `X-Security-Token` header.
 
 ---
 
