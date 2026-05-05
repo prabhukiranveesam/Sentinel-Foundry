@@ -1,31 +1,48 @@
-<img src="assets/banner.svg" alt="Sentinel Foundry — AI-Powered Microsoft Sentinel Intelligence" width="100%"/>
+<img src="assets/banner.svg" alt="Sentinel Foundry — AI Intelligence Layer for Microsoft Sentinel" width="100%"/>
 
-# Sentinel Foundry — MCP Agent (Preview)
+# Sentinel Foundry — MCP Server
 
-**Sentinel Foundry** is an AI intelligence layer for Microsoft Sentinel, delivered as a live [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server.
+**Sentinel Foundry** is an open-source AI intelligence layer for Microsoft Sentinel, built on the [Model Context Protocol (MCP)](https://modelcontextprotocol.io) — the open standard for connecting AI assistants to live systems.
 
-Connect directly from VS Code Copilot Chat or Claude Desktop and talk to your Sentinel workspace in plain English — no dashboards, no KQL required.
+Connect directly from VS Code Copilot Chat or Claude Desktop and talk to your Sentinel workspace in plain English. No dashboards. No KQL required.
 
-`Note: This is currently in the final phases of testing, but the public preview will be available from 30/04/2026`
+---
+
+## What is this?
+
+Most security teams spend time *finding* information: digging through dashboards, writing KQL, switching between portals. Sentinel Foundry eliminates that by giving your AI assistant **direct, live access** to your Sentinel workspace data.
+
+Ask in plain English. Get real answers from your real data.
+
+**You ask:** *"Why is our security score dropping? What should we fix first?"*
+**It does:** Runs health checks, analyses detection coverage, cross-references costs, applies a reasoning engine across all findings, and tells you exactly what to prioritise — in seconds.
+
+**You ask:** *"Would we detect a ransomware attack right now?"*
+**It does:** Maps 77 MITRE ATT&CK v18 techniques against your enabled rules and available data tables. Returns a pass/fail verdict for each technique with specific gaps.
+
+This is not a chatbot guessing from training data. Every answer comes from **live Azure APIs** against your actual workspace.
 
 ---
 
 ## What can it do?
 
-The agent exposes **43 tools** across every dimension of Sentinel operations, including a reasoning engine that diagnoses *why* your workspace is in its current state. Ask questions like in a conversation:
+**43 tools** across every dimension of Sentinel operations — from cost analysis to threat simulation:
 
-| What you say | What the agent does |
+| What you ask | What happens |
 |---|---|
-| *"What are our top cost drivers this month?"* | Reads Azure billing data, breaks down ingestion GB and spend by table |
+| *"What are our top cost drivers this month?"* | Reads Azure billing data, breaks down ingestion GB and spend by table, in your regional currency |
 | *"Do we have any detection gaps against MITRE ATT&CK?"* | Maps all 14 ATT&CK v18 tactics across 77 techniques, surfaces uncovered areas |
 | *"Which detection rules are causing the most noise?"* | Analyses 30 days of alert data, finds high-FP rules, provides KQL patches |
-| *"Give me our full security health score"* | Scores Data, Detection, Automation, Cost, and Operations pillars |
+| *"Give me our full security health score"* | Scores Data, Detection, Automation, Cost, and Operations pillars with evidence |
 | *"What workbooks are we missing?"* | Cross-references your data sources against workbook coverage |
 | *"Suggest automations we should build"* | Analyses incident patterns, returns Logic App ARM templates ready to deploy |
 | *"Generate a full security posture report"* | Produces a self-contained HTML report with score rings, metric cards, and print-to-PDF support |
 | *"Why does our workspace score so low?"* | Runs root-cause diagnosis across all pillars — 10 correlation rules identify the real reasons |
 | *"Would we detect a ransomware attack right now?"* | Simulates a named attack scenario against live data, returns pass/fail per MITRE technique |
-| *"Write a board summary of our security posture"* | Generates an audience-calibrated narrative: board / CISO / SOC / technical |
+| *"Write a board summary of our current security posture"* | Generates an audience-calibrated narrative: board / CISO / SOC / technical |
+| *"Show me PowerShell executions in the last 24 hours"* | Queries DeviceProcessEvents via Defender XDR Advanced Hunting |
+| *"Analyse our detection rules and score their quality"* | Per-rule quality scores across 5 dimensions: KQL, severity, entity mapping, MITRE, and freshness |
+| *"Our Sentinel bill jumped — what changed?"* | Identifies ingestion spikes, over-ingested tables, and waste patterns with actionable savings recommendations |
 
 ---
 
@@ -92,9 +109,9 @@ The agent exposes **43 tools** across every dimension of Sentinel operations, in
 
 | Tool | What it does |
 |---|---|
-| `analyze_cost` | Reads actual billed GB from Azure Usage — monthly estimate, per-table breakdown, regional pricing |
+| `analyze_cost` | Reads actual billed GB from Azure Usage — monthly estimate, per-table breakdown, regional pricing in your local currency (GBP, USD, EUR, AUD, JPY, CAD, INR, and more) |
 | `detect_waste` | Identifies over-ingested tables, verbose sources, and zero-value data streams |
-| `suggest_cost_optimizations` | Ranked savings plan with £ estimates and effort ratings |
+| `suggest_cost_optimizations` | Ranked savings plan with currency-specific estimates and effort ratings |
 
 </details>
 
@@ -169,6 +186,7 @@ All reports default to **self-contained HTML** — professional design with scor
 ---
 
 ## Connect in 2 minutes
+
 To add the Sentinel Foundry collection, first set up the MCP server interface. Follow the step-by-step instructions for the compatible AI-powered code editors and agent-building platforms.
 The Sentinel Foundry collection is hosted at the following URL:
 ```json
@@ -182,7 +200,8 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
 
 1. Add MCP server:
 
-   a. Press Ctrl + Shift + P then type or choose MCP: Add Server.
+
+  a. Press Ctrl + Shift + P then type or choose MCP: Add Server.
 
    <img width="602" height="112" alt="mcp-get-started-add-server" src="https://github.com/user-attachments/assets/541c3249-8224-4e89-9f6f-86b49e97e433" />
    
@@ -201,6 +220,7 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
    <img width="615" height="138" alt="mcp-get-started-authenticate" src="https://github.com/user-attachments/assets/3b54d1ac-b70e-499a-810b-8f4e8103078e" />
    
 4. Open Visual Studio Code's chat. Select View > Chat, select the Toggle Chat icon  beside the search bar, or press Ctrl + Alt + I.
+
 5. Verify connection. Set the chat to Agent mode, then confirm by selecting the Configure Tools icon that you see added under the MCP server.
 
    <img width="687" height="282" alt="mcp-get-started-04" src="https://github.com/user-attachments/assets/919c267b-bb62-46a3-9cc3-174d2073768d" />
@@ -317,10 +337,10 @@ Your Question
      │
      ▼
 VS Code Copilot / Claude Desktop
-     │  (MCP protocol over HTTPS)
+     │  (MCP protocol over HTTPS — TLS 1.2/1.3)
      ▼
 Sentinel Foundry MCP Server
-     │  (authenticates with your Azure identity)
+     │  (authenticates with your Azure identity — read-only)
      │
      ├── Analytical Modules ──────────────────────────────────┐
      │   ├──► Microsoft Sentinel API  (rules, incidents)      │
@@ -337,7 +357,12 @@ Sentinel Foundry MCP Server
 Structured response → HTML report / narrative / tool output
 ```
 
-Every answer comes from **live Azure APIs** — not from training data or estimates. The reasoning layer then correlates findings to explain *why*, not just *what*.
+**Key design principles:**
+
+- **Read-only** — the server never writes to, modifies, or deletes anything in your Azure environment
+- **Session-isolated** — each user connection is fully independent; your workspace credentials are never shared
+- **Live data only** — every answer is derived from your actual Azure APIs at query time, not cached training data
+- **Zero data retention** — no logs, no storage of query results or workspace data on the server
 
 ---
 
@@ -393,21 +418,41 @@ In addition to classic Sentinel Log Analytics, the agent supports **Microsoft De
 | **Cloud Apps** | `CloudAppEvents`, `AppFileEvents` |
 | **Exposure** | `ExposureGraphNodes`, `ExposureGraphEdges` |
 | **Behaviour & AAD** | `BehaviorEntities`, `BehaviorInfo`, `AADSignInEventsBeta`, `AADSpnSignInEventsBeta` |
+| **URL & Files** | `UrlClickEvents`, `FileProfile` |
+| **Vulnerability** | `DeviceTvmSecureConfigurationAssessment`, `DeviceTvmSecureConfigurationAssessmentKB`, `DeviceTvmSoftwareInventory`, `DeviceTvmSoftwareVulnerabilities`, `DeviceTvmSoftwareVulnerabilitiesKB` |
+| **Other** | `AssignedIPAddresses`, `DeviceFileCertificateInfo` |
 
 Tool routing is **automatic** — when a KQL query or schema request targets a Defender XDR table name, it is routed to `POST https://graph.microsoft.com/v1.0/security/runHuntingQuery`. No tool changes or configuration needed beyond supplying the `X-Security-Token` header.
 
 ---
 
+## Security
+
+The hosted MCP server at `mcp.kiranlab.co.uk` is hardened for public access:
+
+- **TLS 1.2/1.3 only** with HSTS (`max-age=63072000; includeSubDomains; preload`)
+- **Security headers**: `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Content-Security-Policy`, `Referrer-Policy`
+- **Rate limiting** on all endpoints with automatic IP-level throttling
+- **Fail2ban** active — repeated authentication failures result in automatic IP bans
+- **Read-only Azure access** — the server cannot create, modify, or delete Azure resources
+- **No credential storage** — your Azure tokens are used only within your session and never persisted to disk
+
+---
+
 ## About
 
-Sentinel Foundry is built on the [Model Context Protocol](https://modelcontextprotocol.io) — the open standard for connecting AI assistants to live data sources. It runs as a hardened, session-isolated HTTPS service with full Azure identity integration.
+Sentinel Foundry is built on the [Model Context Protocol](https://modelcontextprotocol.io) — the open standard for connecting AI assistants to live data sources. It runs as a session-isolated HTTPS service with full Azure identity integration.
 
 **43 tools. 11 guided prompts. Full MITRE ATT&CK v18 coverage across all 14 enterprise tactics.**
 
 The reasoning engine runs all analytical modules in parallel, applies 10 correlation rules, and tells you *why* your workspace is in its current state — not just what the numbers are.
 
-Each connection is fully isolated — your session credentials and workspace data are never shared across users.
+Each connection is fully isolated — your session credentials and workspace data are never shared across users or retained after your session ends.
+
+The source code for this MCP server is available in this repository under the [MIT License](LICENSE).
+
+> For access, enterprise deployment enquiries, or to report issues, open a GitHub issue or contact via the repository.
 
 ---
 
-*For access or enterprise deployment enquiries, contact me via the repository.*
+*Sentinel Foundry is an independent open-source project. It is not affiliated with, endorsed by, or a product of Microsoft Corporation. Microsoft Sentinel, Azure, and related trademarks are the property of Microsoft Corporation. See [TERMS.md](TERMS.md) for full legal terms.*
