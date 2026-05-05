@@ -82,16 +82,56 @@ Every answer comes from **live Azure APIs** against your actual workspace — no
 
 ## Connect in 2 minutes
 
-### VS Code Copilot Chat
+To add the Sentinel Foundry collection, first set up the MCP server interface. Follow the step-by-step instructions for the compatible AI-powered code editors and agent-building platforms.
 
-**Step 1** — Open VS Code and press `Ctrl+Shift+P` → search for **MCP: Add Server**
-
-**Step 2** — Choose **HTTP** and enter:
+The Sentinel Foundry collection is hosted at the following URL:
 ```
 https://mcp.kiranlab.co.uk/sentinel
 ```
 
-**Step 3** — Add your configuration to VS Code `settings.json`:
+### VS Code Copilot (recommended)
+
+To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
+
+1. Add MCP server:
+
+   a. Press Ctrl + Shift + P then type or choose **MCP: Add Server**.
+
+   <img width="602" height="112" alt="mcp-get-started-add-server" src="https://github.com/user-attachments/assets/541c3249-8224-4e89-9f6f-86b49e97e433" />
+   
+   b. Choose **HTTP** (HTTP or Server-Sent Events).
+
+   <img width="599" height="204" alt="mcp-get-started-http" src="https://github.com/user-attachments/assets/d2af653f-0e8d-4def-8aa1-cc31b7a0b839" />
+   
+   c. Enter the URL as `https://mcp.kiranlab.co.uk/sentinel` to add our custom tools, then press Enter.
+
+   d. Assign a friendly Server ID (for example, Sentinel Foundry - MCP server)
+   
+   e. Choose whether to make the server available in all Visual Studio Code workspaces or just the current one.
+   
+2. Allow authentication. When prompted, select **Allow** to authenticate with an account that has **Microsoft Sentinel Reader** and **Security Reader** roles.
+
+   <img width="615" height="138" alt="mcp-get-started-authenticate" src="https://github.com/user-attachments/assets/3b54d1ac-b70e-499a-810b-8f4e8103078e" />
+   
+3. Open Visual Studio Code's chat. Select **View > Chat**, select the Toggle Chat icon beside the search bar, or press `Ctrl + Alt + I`.
+
+4. Verify connection. Set the chat to **Agent mode**, then confirm by selecting the **Configure Tools** icon that you see added under the MCP server.
+
+   <img width="687" height="282" alt="mcp-get-started-04" src="https://github.com/user-attachments/assets/919c267b-bb62-46a3-9cc3-174d2073768d" />
+   
+5. The agent auto-detects your Sentinel workspace from your signed-in Azure account
+   
+6. Run your first query:
+   > *"Discover my Sentinel workspaces and connect automatically."*
+
+   If one Sentinel workspace is found, it is connected automatically.
+   If multiple workspaces are found, you will be asked which one to use.
+
+> **Authentication:** The agent uses your existing VS Code Azure sign-in. Your credentials are used only within your session and are never stored.
+
+**Optional — Settings.json Alternative:**
+
+Alternatively, open **Settings** (`Ctrl+,`) → search **MCP** → click **Edit in settings.json** and add:
 
 ```json
 {
@@ -107,14 +147,33 @@ https://mcp.kiranlab.co.uk/sentinel
 }
 ```
 
-**Step 4** — Open Copilot Chat (`Ctrl+Alt+I`), switch to **Agent mode**, and run:
-> *"Discover my Sentinel workspaces and connect automatically."*
+**Optional — Defender XDR Advanced Hunting:**
 
-If one Sentinel workspace is found, it is connected automatically.
-If multiple workspaces are found, you will be asked which one to use.
-The selected workspace subscription and resource group are resolved automatically.
+To also query Defender XDR tables (`DeviceEvents`, `AlertInfo`, `IdentityLogonEvents`, `EmailEvents`, etc.), add your Microsoft Graph token:
 
-When you first run a Sentinel query, you will be prompted to sign in with your Azure account. Your credentials are used only within your session and are never stored.
+```bash
+# Get a Graph token with ThreatHunting.Read.All
+az account get-access-token --resource https://graph.microsoft.com --query accessToken -o tsv
+```
+
+Add the `headers` key to your MCP server entry in `settings.json`:
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "sentinel": {
+        "name": "Sentinel Foundry - MCP Server",
+        "url": "https://mcp.kiranlab.co.uk/sentinel",
+        "type": "http",
+        "headers": {
+          "X-Security-Token": "<graph-token-here>"
+        }
+      }
+    }
+  }
+}
+```
 
 ---
 
