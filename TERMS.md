@@ -87,7 +87,7 @@ You are responsible for:
 - Not using the service to access workspaces for which you do not have authorisation
 - Reporting suspected security vulnerabilities via the GitHub repository
 
-Kiranlab UK implements reasonable security controls including TLS encryption, rate limiting, and IP-level access controls. However, no system is unconditionally secure, and Kiranlab UK cannot guarantee protection against all possible threats.
+Kiranlab UK implements reasonable security controls, including TLS encryption, rate limiting, and IP-level access controls. However, no system is unconditionally secure, and Kiranlab UK cannot guarantee protection against all possible threats.
 
 ---
 
@@ -126,7 +126,7 @@ Kiranlab UK reserves the right to update these terms at any time. Continued use 
 
 ## 11. Governing Law
 
-These terms are governed by the laws of **England and Wales**. Any disputes arising from these terms or your use of the service shall be subject to the exclusive jurisdiction of the courts of England and Wales.
+These terms are governed by the laws of **United Kingdom**. Any disputes arising from these terms or your use of the service shall be subject to the exclusive jurisdiction of the relevant courts of law.
 
 ---
 
