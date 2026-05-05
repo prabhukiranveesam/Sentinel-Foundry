@@ -1,4 +1,4 @@
-<img src="assets/banner.svg" alt="Sentinel Foundry — AI Intelligence Layer for Microsoft Sentinel" width="100%"/>
+<img src="assets/banner.png" alt="Sentinel Foundry — AI Intelligence Layer for Microsoft Sentinel" width="100%"/>
 
 <div align="center">
 
