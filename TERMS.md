@@ -72,7 +72,7 @@ Sentinel Foundry is designed with a **zero-retention** architecture:
 - **No workspace data is stored** on Kiranlab UK infrastructure beyond the duration of your active session
 - **No query results, log samples, or schema information** are persisted to disk or databases
 - **Your Azure credentials** (tokens) are used only within your session to authenticate API calls and are never written to storage
-- **Access logs** (IP address, endpoint, timestamp) may be retained by the web server for up to 30 days for security and abuse prevention purposes, in accordance with applicable data protection law
+- **Access logs** (IP address, endpoint, timestamp) may be retained by the web server for up to 90 days for security and abuse prevention purposes, in accordance with applicable data protection law
 
 Kiranlab UK does not sell, share, or transfer your data or query results to any third parties.
 
