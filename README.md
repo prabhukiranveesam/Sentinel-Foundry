@@ -2,7 +2,7 @@
 
 <div align="center">
 
-> **🔵 Public Preview** — Sentinel Foundry is live and available for public testing. We welcome your feedback, questions, and contributions.
+> **🔵 Public Preview** — Sentinel Foundry is live and available for public testing. We welcome your valuable feedback.
 
 **Hosted service available: Monday – Sunday, 07:00 – 22:00 UK Time (GMT/BST) until 31-05-2026**
 
