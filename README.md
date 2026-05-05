@@ -202,6 +202,61 @@ Replace `YOUR_API_KEY` with the key provided to you.
 
 ---
 
+### Microsoft Security Copilot
+
+Connect Sentinel Foundry as a custom plugin to build intelligent security agents in [Microsoft Security Copilot](https://securitycopilot.microsoft.com/).
+
+#### Step 1: Create a YAML plugin file
+
+Save the following as `sentinel-foundry.yaml`:
+
+```yaml
+Descriptor:
+  Name: SentinelFoundry
+  DisplayName: Sentinel Foundry - MCP Server
+  Description: AI intelligence layer for Microsoft Sentinel — 43 tools for detection, cost, MITRE ATT&CK coverage, and threat hunting.
+  DescriptionForModel: Provides comprehensive Microsoft Sentinel workspace analysis tools including health scoring, MITRE ATT&CK coverage analysis, cost analysis, detection rule quality scoring, incident analysis, threat simulation, and executive reporting.
+SkillGroups:
+- Format: MCP
+  Settings:
+    Endpoint: https://mcp.kiranlab.co.uk/sentinel
+    TokenScope: 4500ebfb-89b6-4b14-a480-7f749797bfcd/.default
+    UseStreamableHttp: true
+    UsePluginAuth: false
+    TimeoutInSeconds: 300
+```
+
+#### Step 2: Add as a custom plugin
+
+1. Go to the [Security Copilot portal](https://securitycopilot.microsoft.com/) and select the **Sources** icon in the prompt bar.
+
+<img src="https://learn.microsoft.com/en-us/azure/sentinel/datalake/media/sentinel-mcp/custom-copilot-source.png" width="700" alt="Sources icon in Security Copilot prompt bar" />
+
+2. In the **Manage sources** window, scroll to **Custom** under Plugins and select **Add plugin**.
+
+<img src="https://learn.microsoft.com/en-us/azure/sentinel/datalake/media/sentinel-mcp/custom-copilot-manage-sources.png" width="700" alt="Manage sources window showing Add plugin option" />
+
+3. Select **Security Copilot plugin**, choose your `sentinel-foundry.yaml` file, then select **Add**.
+
+<img src="https://learn.microsoft.com/en-us/azure/sentinel/datalake/media/sentinel-mcp/custom-copilot-add-plugin.png" width="700" alt="Add plugin dialog with Security Copilot plugin selected" />
+
+4. Once added, the plugin appears in the Custom section — use the toggle to enable or disable it.
+
+<img src="https://learn.microsoft.com/en-us/azure/sentinel/datalake/media/sentinel-mcp/custom-copilot-toggle-plugin.png" width="700" alt="Custom plugin visible in Security Copilot with toggle" />
+
+#### Step 3: Build an agent using the plugin
+
+1. In Security Copilot, go to **Build** and select **Start from Scratch** or open an existing agent.
+2. In your agent skill, select **Add a tool** and find **Sentinel Foundry - MCP Server**.
+
+<img src="https://learn.microsoft.com/en-us/azure/sentinel/datalake/media/sentinel-mcp/custom-copilot-add-tool.png" width="700" alt="Add a tool option in Security Copilot agent builder" />
+
+<img src="https://learn.microsoft.com/en-us/azure/sentinel/datalake/media/sentinel-mcp/custom-copilot-search-tool.png" width="700" alt="Sentinel Foundry tools visible in tool search" />
+
+3. Add the plugin to your agent. All 43 Sentinel Foundry tools are now available in your Security Copilot agent.
+
+---
+
 ## Required Azure Permissions
 
 Two Azure built-in roles cover everything the agent needs:
