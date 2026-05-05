@@ -43,7 +43,7 @@ Every answer comes from **live Azure APIs** against your actual workspace — no
 | Without Sentinel Foundry | With Sentinel Foundry |
 |---|---|
 | Hours writing KQL queries | Answers in seconds, plain English |
-| Switching between 5 different portals | One conversation with your AI assistant |
+| Switching between different portals | One conversation with your AI assistant |
 | Manual MITRE ATT&CK gap analysis | Automated coverage across 77 techniques |
 | Guessing which tables drive your bill | Exact cost breakdown with savings recommendations |
 | Writing board reports from scratch | AI-generated narrative calibrated for any audience |
