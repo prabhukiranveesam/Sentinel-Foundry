@@ -4,7 +4,7 @@
 
 > **🔵 Public Preview** — Sentinel Foundry is live and available for public testing. We welcome your feedback, questions, and contributions.
 
-**Hosted service available: Monday – Friday, 09:00 – 18:00 UK Time (GMT/BST)**
+**Hosted service available: Monday – Saturday, 07:00 – 22:00 UK Time (GMT/BST)**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![MCP Protocol](https://img.shields.io/badge/Protocol-MCP-0078d4)](https://modelcontextprotocol.io)
@@ -97,7 +97,7 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
 
    a. Press Ctrl + Shift + P then type or choose **MCP: Add Server**.
 
-   <img width="602" height="112" alt="mcp-get-started-add-server" src="https://github.com/user-attachments/assets/541c3249-8224-4e89-9f6f-86b49e97e433" />
+   <img width="602" height="112" alt="mcp-get-started-add-server" src="https://github.com/user-attachments/assets/541c324-8224-4e89-9f6f-86b49e97e433" />
    
    b. Choose **HTTP** (HTTP or Server-Sent Events).
 
@@ -383,19 +383,17 @@ Structured response → HTML report / narrative / tool output
 
 ## Service Protection
 
-The hosted service at `mcp.kiranlab.co.uk` is enterprise-grade protected against common threats. It is designed to be always available and resilient to abuse, with automatic protection that keeps the service running reliably for legitimate users. It operates within a dedicated, isolated network environment — completely separate from any other Kiranlab infrastructure.
+The hosted service at `mcp.kiranlab.co.uk` is enterprise-grade and protected against common threats. It is designed to be always available and resilient to abuse, with automatic protection that keeps the service running reliably for legitimate users. It operates within a dedicated, isolated network environment — completely separate from any other Kiranlab infrastructure.
 
 ---
 
 ## Service Availability
 
-> **🕘 Monday – Friday: 09:00 – 18:00 UK Time (GMT/BST)**
+> **🕘 Monday – Saturday: 07:00 – 22:00 UK Time (GMT/BST)**
 
-The hosted MCP server is available during these hours for public preview. Outside of these hours the service may be offline for maintenance.
+The hosted MCP server is available during these hours for public preview. Outside of these hours, the service may be offline for maintenance.
 
 If you need extended availability or an enterprise SLA, please reach out via GitHub issues or the contact details in [TERMS.md](TERMS.md).
-
-**Self-hosting:** The server is fully open-source — you can run your own instance 24/7 by following the deployment guide in the repository.
 
 ---
 
