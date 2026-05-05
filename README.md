@@ -4,7 +4,7 @@
 
 > **🔵 Public Preview** — Sentinel Foundry is live and available for public testing. We welcome your feedback, questions, and contributions.
 
-**Hosted service available: Monday – Friday, 09:00 – 18:00 UK Time (GMT/BST)**
+**Hosted service available: Monday – Sunday, 07:00 – 22:00 UK Time (GMT/BST) until 31-05-2026**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![MCP Protocol](https://img.shields.io/badge/Protocol-MCP-0078d4)](https://modelcontextprotocol.io)
