@@ -107,8 +107,12 @@ https://mcp.kiranlab.co.uk/sentinel
 }
 ```
 
-**Step 4** — Open Copilot Chat (`Ctrl+Alt+I`), switch to **Agent mode**, and try:
-> *"List all the tools available"*
+**Step 4** — Open Copilot Chat (`Ctrl+Alt+I`), switch to **Agent mode**, and run:
+> *"Discover my Sentinel workspaces and connect automatically."*
+
+If one Sentinel workspace is found, it is connected automatically.
+If multiple workspaces are found, you will be asked which one to use.
+The selected workspace subscription and resource group are resolved automatically.
 
 When you first run a Sentinel query, you will be prompted to sign in with your Azure account. Your credentials are used only within your session and are never stored.
 
