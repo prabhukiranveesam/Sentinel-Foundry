@@ -1,218 +1,238 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 320" width="1280" height="320">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" width="1280" height="400">
   <defs>
-    <!-- Background gradient: deep navy → dark slate -->
+    <!-- Main background gradient -->
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%"   stop-color="#0a0f1e"/>
-      <stop offset="55%"  stop-color="#0d1b2e"/>
-      <stop offset="100%" stop-color="#101c38"/>
+      <stop offset="0%"   stop-color="#060d1f"/>
+      <stop offset="45%"  stop-color="#0a1535"/>
+      <stop offset="100%" stop-color="#0d1e45"/>
     </linearGradient>
-
-    <!-- Shield glow -->
+    <!-- Glow gradient for shield -->
     <radialGradient id="shieldGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%"   stop-color="#0078d4" stop-opacity="0.3"/>
+      <stop offset="0%"   stop-color="#0078d4" stop-opacity="0.35"/>
       <stop offset="100%" stop-color="#0078d4" stop-opacity="0"/>
     </radialGradient>
-
-    <!-- Accent pulse ring -->
-    <radialGradient id="pulseRing" cx="50%" cy="50%" r="50%">
-      <stop offset="0%"   stop-color="#50e6ff" stop-opacity="0.12"/>
+    <!-- Shield fill gradient -->
+    <linearGradient id="shieldFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#1a3a6b"/>
+      <stop offset="100%" stop-color="#0d2248"/>
+    </linearGradient>
+    <!-- Accent line gradient -->
+    <linearGradient id="accentLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#0078d4"/>
+      <stop offset="50%"  stop-color="#50e6ff"/>
+      <stop offset="100%" stop-color="#0078d4" stop-opacity="0"/>
+    </linearGradient>
+    <!-- Right glow -->
+    <radialGradient id="rightGlow" cx="80%" cy="50%" r="40%">
+      <stop offset="0%"   stop-color="#0078d4" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#0078d4" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Top right orb -->
+    <radialGradient id="orbGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#50e6ff" stop-opacity="0.2"/>
       <stop offset="100%" stop-color="#50e6ff" stop-opacity="0"/>
     </radialGradient>
-
-    <!-- MCP badge gradient -->
-    <linearGradient id="mcpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%"   stop-color="#0078d4"/>
-      <stop offset="100%" stop-color="#004578"/>
-    </linearGradient>
-
-    <!-- Subtle grid clip -->
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M48 0L0 0 0 48" fill="none" stroke="#ffffff" stroke-width="0.4" opacity="0.045"/>
-    </pattern>
-
-    <!-- Clip path for shield -->
+    <!-- Clip for shield -->
     <clipPath id="shieldClip">
-      <path d="M128 44 L200 44 L200 108 Q200 152 164 172 Q128 152 128 108 Z"/>
+      <path d="M80 6 L154 6 L154 80 Q154 130 117 148 Q80 130 80 80 Z"/>
     </clipPath>
-
-    <!-- Drop shadow for main title -->
-    <filter id="textGlow" x="-20%" y="-40%" width="140%" height="180%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+    <!-- Filter: blue glow -->
+    <filter id="blueGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
-
-    <!-- Subtle glow for shield icon -->
-    <filter id="iconGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
+    <!-- Filter: soft glow -->
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
+    <!-- Preview badge gradient -->
+    <linearGradient id="previewBadge" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#0078d4"/>
+      <stop offset="100%" stop-color="#005a9e"/>
+    </linearGradient>
   </defs>
 
-  <!-- ── Background ─────────────────────────────────────────────────────── -->
-  <rect width="1280" height="320" fill="url(#bg)"/>
-  <rect width="1280" height="320" fill="url(#grid)"/>
+  <!-- Background -->
+  <rect width="1280" height="400" fill="url(#bg)"/>
 
-  <!-- Subtle top accent bar -->
-  <rect width="1280" height="2" y="0" fill="#0078d4" opacity="0.7"/>
+  <!-- Subtle dot grid pattern -->
+  <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <circle cx="20" cy="20" r="0.8" fill="#ffffff" opacity="0.06"/>
+  </pattern>
+  <rect width="1280" height="400" fill="url(#dots)"/>
 
-  <!-- Faint ambient glow behind the shield -->
-  <ellipse cx="164" cy="120" rx="120" ry="100" fill="url(#pulseRing)"/>
+  <!-- Right ambient glow -->
+  <rect width="1280" height="400" fill="url(#rightGlow)"/>
 
-  <!-- ── Shield Icon ─────────────────────────────────────────────────────── -->
-  <!-- Outer glow ring -->
-  <ellipse cx="164" cy="116" rx="68" ry="68" fill="url(#shieldGlow)" filter="url(#iconGlow)"/>
+  <!-- Top-right decorative orb -->
+  <circle cx="1100" cy="80" r="180" fill="url(#orbGlow)"/>
 
-  <!-- Shield body -->
-  <path d="M164 48 L218 70 L218 112 Q218 162 164 188 Q110 162 110 112 L110 70 Z"
-        fill="none" stroke="#0078d4" stroke-width="2.5" opacity="0.9"/>
-  <path d="M164 56 L212 76 L212 112 Q212 156 164 180 Q116 156 116 112 L116 76 Z"
-        fill="#0078d4" fill-opacity="0.12"/>
-
-  <!-- Shield inner circuit lines -->
-  <g stroke="#50e6ff" stroke-width="1.2" opacity="0.55" stroke-linecap="round">
-    <line x1="164" y1="80" x2="164" y2="100"/>
-    <line x1="148" y1="96" x2="180" y2="96"/>
-    <circle cx="164" cy="108" r="6" fill="none"/>
-    <line x1="164" y1="114" x2="164" y2="134"/>
-    <line x1="148" y1="128" x2="164" y2="134"/>
-    <line x1="180" y1="128" x2="164" y2="134"/>
-    <circle cx="148" cy="128" r="2.5" fill="#50e6ff"/>
-    <circle cx="180" cy="128" r="2.5" fill="#50e6ff"/>
-    <circle cx="164" cy="96" r="2.5" fill="#50e6ff"/>
+  <!-- Decorative circuit lines — right side -->
+  <g opacity="0.18" stroke="#50e6ff" stroke-width="1" fill="none">
+    <!-- Horizontal rails -->
+    <line x1="820" y1="80"  x2="1200" y2="80"/>
+    <line x1="850" y1="160" x2="1200" y2="160"/>
+    <line x1="880" y1="240" x2="1200" y2="240"/>
+    <line x1="820" y1="320" x2="1200" y2="320"/>
+    <!-- Vertical connectors -->
+    <line x1="900"  y1="80" x2="900"  y2="160"/>
+    <line x1="960"  y1="80" x2="960"  y2="240"/>
+    <line x1="1020" y1="80" x2="1020" y2="320"/>
+    <line x1="1080" y1="160" x2="1080" y2="320"/>
+    <line x1="1140" y1="80"  x2="1140" y2="240"/>
+    <!-- Nodes -->
+    <circle cx="900"  cy="80"  r="3" fill="#50e6ff" opacity="0.8"/>
+    <circle cx="900"  cy="160" r="3" fill="#50e6ff" opacity="0.8"/>
+    <circle cx="960"  cy="80"  r="3" fill="#0078d4" opacity="0.8"/>
+    <circle cx="960"  cy="240" r="3" fill="#50e6ff" opacity="0.8"/>
+    <circle cx="1020" cy="80"  r="3" fill="#50e6ff" opacity="0.8"/>
+    <circle cx="1020" cy="160" r="2" fill="#0078d4" opacity="0.6"/>
+    <circle cx="1020" cy="240" r="3" fill="#50e6ff" opacity="0.8"/>
+    <circle cx="1020" cy="320" r="3" fill="#0078d4" opacity="0.8"/>
+    <circle cx="1080" cy="160" r="3" fill="#50e6ff" opacity="0.8"/>
+    <circle cx="1080" cy="240" r="2" fill="#0078d4" opacity="0.6"/>
+    <circle cx="1080" cy="320" r="3" fill="#50e6ff" opacity="0.8"/>
+    <circle cx="1140" cy="80"  r="3" fill="#0078d4" opacity="0.8"/>
+    <circle cx="1140" cy="160" r="2" fill="#50e6ff" opacity="0.6"/>
+    <circle cx="1140" cy="240" r="3" fill="#0078d4" opacity="0.8"/>
   </g>
 
-  <!-- AI node dots (suggest neural network) -->
-  <g fill="#50e6ff" opacity="0.4">
-    <circle cx="132" cy="90" r="2"/>
-    <circle cx="196" cy="90" r="2"/>
-    <circle cx="132" cy="140" r="2"/>
-    <circle cx="196" cy="140" r="2"/>
-  </g>
-  <g stroke="#50e6ff" stroke-width="0.7" opacity="0.2">
-    <line x1="132" y1="90" x2="148" y2="96"/>
-    <line x1="196" y1="90" x2="180" y2="96"/>
-    <line x1="132" y1="140" x2="148" y2="128"/>
-    <line x1="196" y1="140" x2="180" y2="128"/>
-  </g>
+  <!-- ═══ SHIELD ICON ═══════════════════════════════════════════════════ -->
+  <g transform="translate(64, 96)">
+    <!-- Outer glow circle -->
+    <circle cx="117" cy="104" r="90" fill="url(#shieldGlow)"/>
 
-  <!-- ── Connection line from shield to text ─────────────────────────────── -->
-  <line x1="236" y1="118" x2="268" y2="118" stroke="#0078d4" stroke-width="1" opacity="0.4" stroke-dasharray="3,3"/>
+    <!-- Shield shadow/depth -->
+    <path d="M87 16 L147 16 L147 88 Q147 138 117 158 Q87 138 87 88 Z"
+          fill="#041020" opacity="0.5" transform="translate(3,3)"/>
 
-  <!-- ── Main Title ──────────────────────────────────────────────────────── -->
-  <text x="286" y="112"
-        font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
-        font-size="72"
-        font-weight="700"
-        letter-spacing="-1"
-        fill="#ffffff"
-        filter="url(#textGlow)">Sentinel</text>
+    <!-- Shield body -->
+    <path d="M84 13 L150 13 L150 87 Q150 140 117 160 Q84 140 84 87 Z"
+          fill="url(#shieldFill)" stroke="#1e4a8a" stroke-width="2"/>
 
-  <text x="286" y="112"
-        font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
-        font-size="72"
-        font-weight="700"
-        letter-spacing="-1"
-        fill="url(#mcpGrad)"
-        fill-opacity="0"
-        stroke="#ffffff"
-        stroke-width="0">Sentinel</text>
+    <!-- Shield border glow -->
+    <path d="M84 13 L150 13 L150 87 Q150 140 117 160 Q84 140 84 87 Z"
+          fill="none" stroke="#0078d4" stroke-width="1.5" opacity="0.9"/>
 
-  <!-- "Foundry" in accent blue -->
-  <text x="758" y="112"
-        font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
-        font-size="72"
-        font-weight="300"
-        letter-spacing="2"
-        fill="#50e6ff"
-        opacity="0.92">Foundry</text>
+    <!-- Inner highlight line -->
+    <path d="M94 20 L144 20 L144 87 Q144 132 117 150 Q90 132 90 87 L90 20"
+          fill="none" stroke="#50e6ff" stroke-width="0.5" opacity="0.5"/>
 
-  <!-- ── Subtitle ────────────────────────────────────────────────────────── -->
-  <text x="286" y="155"
-        font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
-        font-size="22"
-        font-weight="400"
-        letter-spacing="0.5"
-        fill="#b0c4de"
-        opacity="0.88">AI Intelligence Layer for Microsoft Sentinel</text>
+    <!-- AI/circuit design inside shield -->
+    <!-- Central node -->
+    <circle cx="117" cy="87" r="10" fill="#0078d4" opacity="0.9"/>
+    <circle cx="117" cy="87" r="7" fill="#50e6ff" opacity="0.7"/>
+    <circle cx="117" cy="87" r="3" fill="#ffffff" opacity="0.9"/>
 
-  <!-- ── Horizontal rule ────────────────────────────────────────────────── -->
-  <line x1="286" y1="175" x2="980" y2="175" stroke="#1f4068" stroke-width="1"/>
+    <!-- Radiating lines from center -->
+    <g stroke="#50e6ff" stroke-width="1.2" opacity="0.7" fill="none">
+      <line x1="117" y1="77" x2="117" y2="55"/>
+      <line x1="117" y1="97" x2="117" y2="140"/>
+      <line x1="107" y1="87" x2="96"  y2="87"/>
+      <line x1="127" y1="87" x2="138" y2="87"/>
+      <line x1="110" y1="80" x2="100" y2="70"/>
+      <line x1="124" y1="80" x2="134" y2="70"/>
+      <line x1="110" y1="94" x2="100" y2="104"/>
+      <line x1="124" y1="94" x2="134" y2="104"/>
+    </g>
 
-  <!-- ── Feature pills ──────────────────────────────────────────────────── -->
-  <!-- Pill 1: MCP Protocol -->
-  <rect x="286" y="192" width="148" height="30" rx="15" fill="#0d2137" stroke="#0078d4" stroke-width="1" opacity="0.9"/>
-  <text x="360" y="212" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="500"
-        fill="#50e6ff" text-anchor="middle" opacity="0.95">MCP Protocol</text>
+    <!-- Outer ring nodes -->
+    <g fill="#0078d4" opacity="0.9">
+      <circle cx="117" cy="55"  r="4"/>
+      <circle cx="96"  cy="87"  r="4"/>
+      <circle cx="138" cy="87"  r="4"/>
+      <circle cx="100" cy="70"  r="3"/>
+      <circle cx="134" cy="70"  r="3"/>
+      <circle cx="100" cy="104" r="3"/>
+      <circle cx="134" cy="104" r="3"/>
+      <circle cx="117" cy="136" r="4"/>
+    </g>
 
-  <!-- Pill 2: 43 Tools -->
-  <rect x="446" y="192" width="130" height="30" rx="15" fill="#0d2137" stroke="#0078d4" stroke-width="1" opacity="0.9"/>
-  <text x="511" y="212" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="500"
-        fill="#50e6ff" text-anchor="middle" opacity="0.95">43+ AI Tools</text>
-
-  <!-- Pill 3: MITRE ATT&CK -->
-  <rect x="588" y="192" width="168" height="30" rx="15" fill="#0d2137" stroke="#0078d4" stroke-width="1" opacity="0.9"/>
-  <text x="672" y="212" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="500"
-        fill="#50e6ff" text-anchor="middle" opacity="0.95">MITRE ATT&amp;CK</text>
-
-  <!-- Pill 4: Azure Sentinel -->
-  <rect x="768" y="192" width="168" height="30" rx="15" fill="#0d2137" stroke="#0078d4" stroke-width="1" opacity="0.9"/>
-  <text x="852" y="212" font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="500"
-        fill="#50e6ff" text-anchor="middle" opacity="0.95">Azure Sentinel</text>
-
-  <!-- ── Works with row ──────────────────────────────────────────────────── -->
-  <text x="286" y="258"
-        font-family="'Segoe UI', Arial, sans-serif"
-        font-size="12"
-        fill="#6b8299"
-        letter-spacing="1"
-        font-weight="600">WORKS WITH</text>
-
-  <!-- VS Code logo (simplified) -->
-  <g transform="translate(374, 244)" opacity="0.75">
-    <rect width="28" height="28" rx="5" fill="#0066b8"/>
-    <text x="14" y="20" font-size="14" text-anchor="middle" fill="white" font-family="monospace" font-weight="700">&gt;_</text>
-  </g>
-  <text x="408" y="262" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#8aa8c0">VS Code</text>
-
-  <!-- Claude logo (simplified circle) -->
-  <g transform="translate(482, 244)" opacity="0.75">
-    <circle cx="14" cy="14" r="14" fill="#d97706"/>
-    <text x="14" y="19" font-size="13" text-anchor="middle" fill="white" font-family="serif" font-weight="700">C</text>
-  </g>
-  <text x="502" y="262" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#8aa8c0">Claude</text>
-
-  <!-- Generic MCP client icon -->
-  <g transform="translate(570, 244)" opacity="0.75">
-    <rect width="28" height="28" rx="5" fill="#2d6a4f"/>
-    <text x="14" y="20" font-size="13" text-anchor="middle" fill="white" font-family="monospace" font-weight="700">M</text>
-  </g>
-  <text x="604" y="262" font-family="'Segoe UI', Arial, sans-serif" font-size="12" fill="#8aa8c0">Any MCP Client</text>
-
-  <!-- ── Kiranlab credit ─────────────────────────────────────────────────── -->
-  <text x="1252" y="300"
-        font-family="'Segoe UI', Arial, sans-serif"
-        font-size="11"
-        fill="#2a4a6b"
-        text-anchor="end">kiranlab.co.uk</text>
-
-  <!-- Right decorative circuit lines -->
-  <g stroke="#0078d4" stroke-width="0.8" opacity="0.18">
-    <line x1="1060" y1="40"  x2="1060" y2="280"/>
-    <line x1="1100" y1="40"  x2="1100" y2="280"/>
-    <line x1="1060" y1="80"  x2="1120" y2="80"/>
-    <line x1="1060" y1="140" x2="1140" y2="140"/>
-    <line x1="1060" y1="200" x2="1180" y2="200"/>
-    <line x1="1060" y1="240" x2="1120" y2="240"/>
-    <circle cx="1060" cy="80"  r="3" fill="#0078d4" opacity="0.6"/>
-    <circle cx="1060" cy="140" r="3" fill="#50e6ff" opacity="0.5"/>
-    <circle cx="1060" cy="200" r="3" fill="#0078d4" opacity="0.6"/>
-    <circle cx="1060" cy="240" r="3" fill="#50e6ff" opacity="0.4"/>
-    <circle cx="1120" cy="80"  r="2" fill="#50e6ff" opacity="0.4"/>
-    <circle cx="1140" cy="140" r="2" fill="#0078d4" opacity="0.5"/>
-    <circle cx="1180" cy="200" r="2" fill="#50e6ff" opacity="0.4"/>
-    <circle cx="1120" cy="240" r="2" fill="#0078d4" opacity="0.5"/>
+    <!-- Secondary ring -->
+    <circle cx="117" cy="87" r="22" fill="none" stroke="#0078d4" stroke-width="0.8" opacity="0.5" stroke-dasharray="3 2"/>
+    <circle cx="117" cy="87" r="36" fill="none" stroke="#50e6ff" stroke-width="0.5" opacity="0.3" stroke-dasharray="4 3"/>
   </g>
 
-  <!-- Bottom accent bar -->
-  <rect y="318" width="1280" height="2" fill="url(#mcpGrad)" opacity="0.5"/>
+  <!-- Accent horizontal line under shield/title -->
+  <rect x="64" y="286" width="700" height="1.5" fill="url(#accentLine)" opacity="0.6"/>
+
+  <!-- ═══ MAIN TEXT ══════════════════════════════════════════════════════ -->
+
+  <!-- "Sentinel" -->
+  <text x="248" y="172"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="80" font-weight="700" letter-spacing="-1"
+        fill="#ffffff">Sentinel</text>
+
+  <!-- "Foundry" — cyan accent -->
+  <text x="248" y="252"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="80" font-weight="300" letter-spacing="2"
+        fill="#50e6ff">Foundry</text>
+
+  <!-- Subtitle -->
+  <text x="250" y="298"
+        font-family="'Segoe UI', 'Inter', 'Helvetica Neue', Arial, sans-serif"
+        font-size="20" font-weight="400" letter-spacing="0.5"
+        fill="#8ab4d4" opacity="0.9">AI Intelligence Layer for Microsoft Sentinel</text>
+
+  <!-- ═══ FEATURE PILLS ══════════════════════════════════════════════════ -->
+  <g transform="translate(250, 322)">
+
+    <!-- Pill 1: 43 AI Tools -->
+    <rect x="0" y="0" width="120" height="30" rx="15" fill="#0078d4" opacity="0.25"/>
+    <rect x="0" y="0" width="120" height="30" rx="15" fill="none" stroke="#0078d4" stroke-width="1" opacity="0.6"/>
+    <text x="60" y="20" text-anchor="middle"
+          font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="600"
+          fill="#50e6ff">43 AI Tools</text>
+
+    <!-- Pill 2: MITRE ATT&CK -->
+    <rect x="132" y="0" width="148" height="30" rx="15" fill="#0078d4" opacity="0.25"/>
+    <rect x="132" y="0" width="148" height="30" rx="15" fill="none" stroke="#0078d4" stroke-width="1" opacity="0.6"/>
+    <text x="206" y="20" text-anchor="middle"
+          font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="600"
+          fill="#50e6ff">MITRE ATT&amp;CK v18</text>
+
+    <!-- Pill 3: MCP Protocol -->
+    <rect x="292" y="0" width="130" height="30" rx="15" fill="#0078d4" opacity="0.25"/>
+    <rect x="292" y="0" width="130" height="30" rx="15" fill="none" stroke="#0078d4" stroke-width="1" opacity="0.6"/>
+    <text x="357" y="20" text-anchor="middle"
+          font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="600"
+          fill="#50e6ff">MCP Protocol</text>
+
+    <!-- Pill 4: Multi-Region -->
+    <rect x="434" y="0" width="130" height="30" rx="15" fill="#0078d4" opacity="0.25"/>
+    <rect x="434" y="0" width="130" height="30" rx="15" fill="none" stroke="#0078d4" stroke-width="1" opacity="0.6"/>
+    <text x="499" y="20" text-anchor="middle"
+          font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="600"
+          fill="#50e6ff">Azure Native</text>
+
+  </g>
+
+  <!-- ═══ PUBLIC PREVIEW BADGE ═══════════════════════════════════════════ -->
+  <g transform="translate(1106, 22)">
+    <rect x="0" y="0" width="152" height="32" rx="8" fill="url(#previewBadge)"/>
+    <rect x="0" y="0" width="152" height="32" rx="8" fill="none" stroke="#50e6ff" stroke-width="1" opacity="0.4"/>
+    <text x="76" y="22" text-anchor="middle"
+          font-family="'Segoe UI', Arial, sans-serif" font-size="13" font-weight="700"
+          letter-spacing="1" fill="#ffffff">PUBLIC PREVIEW</text>
+  </g>
+
+  <!-- ═══ BOTTOM BAR ═════════════════════════════════════════════════════ -->
+  <rect x="0" y="372" width="1280" height="28" fill="#0078d4" opacity="0.12"/>
+  <rect x="0" y="372" width="1280" height="1" fill="#0078d4" opacity="0.4"/>
+
+  <!-- Kiranlab credit -->
+  <text x="640" y="390" text-anchor="middle"
+        font-family="'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400"
+        fill="#8ab4d4" opacity="0.7">by Kiranlab UK  ·  mcp.kiranlab.co.uk  ·  Open Source under MIT License</text>
+
+  <!-- ═══ SUBTLE LEFT GLOW ══════════════════════════════════════════════ -->
+  <radialGradient id="leftGlow" cx="12%" cy="50%" r="25%">
+    <stop offset="0%"   stop-color="#0078d4" stop-opacity="0.08"/>
+    <stop offset="100%" stop-color="#0078d4" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1280" height="400" fill="url(#leftGlow)"/>
+
 </svg>
