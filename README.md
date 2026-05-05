@@ -96,8 +96,9 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
 1. Add MCP server:
 
    a. Press Ctrl + Shift + P then type or choose **MCP: Add Server**.
+ 
+   <img width="602" height="112" alt="mcp-add-mcp-server" src="https://github.com/user-attachments/assets/55617ae3-e8b4-418d-b8b5-35c471e42bb6" />
 
-   <img width="602" height="112" alt="mcp-get-started-add-server" src="https://github.com/user-attachments/assets/541c324-8224-4e89-9f6f-86b49e97e433" />
    
    b. Choose **HTTP** (HTTP or Server-Sent Events).
 
