@@ -4,7 +4,7 @@
 
 > **🔵 Public Preview** — Sentinel Foundry is live and available for public testing. We welcome your feedback, questions, and contributions.
 
-**Hosted service available: Monday – Saturday, 07:00 – 22:00 UK Time (GMT/BST)**
+**Hosted service available: Monday – Saturday, 07:00 – 19:00 UK Time (GMT/BST)**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![MCP Protocol](https://img.shields.io/badge/Protocol-MCP-0078d4)](https://modelcontextprotocol.io)
@@ -445,7 +445,7 @@ The hosted service at `mcp.kiranlab.co.uk` is enterprise-grade and protected aga
 
 ## Service Availability
 
-> **🕘 Monday – Saturday: 07:00 – 22:00 UK Time (GMT/BST)**
+> **🕘 Monday – Saturday: 07:00 – 19:00 UK Time (GMT/BST)**
 
 The hosted MCP server is available during these hours for public preview. Outside of these hours, the service may be offline for maintenance.
 
