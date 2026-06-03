@@ -4,8 +4,6 @@
 
 > **🔵 Public Preview** — Sentinel Foundry is live and available for public testing. We welcome your feedback, questions, and contributions.
 
-**Hosted service available: Monday – Saturday, 07:00 – 19:00 UK Time (GMT/BST)**
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![MCP Protocol](https://img.shields.io/badge/Protocol-MCP-0078d4)](https://modelcontextprotocol.io)
 [![Azure Sentinel](https://img.shields.io/badge/Microsoft-Sentinel-0078d4)](https://azure.microsoft.com/products/microsoft-sentinel)
@@ -102,7 +100,7 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
    
    b. Choose **HTTP** (HTTP or Server-Sent Events).
 
-   <img width="599" height="204" alt="mcp-get-started-http" src="https://github.com/user-attachments/assets/d2af653f-0e8d-4def-8aa1-cc31b7a0b839" />
+   <img width="59" height="204" alt="mcp-get-started-http" src="https://github.com/user-attachments/assets/d2af653f-0e8d-4def-8aa1-cc31b7a0b839" />
    
    c. Enter the URL as `https://mcp.kiranlab.co.uk/sentinel` to add our custom tools, then press Enter.
 
@@ -445,7 +443,7 @@ The hosted service at `mcp.kiranlab.co.uk` is enterprise-grade and protected aga
 
 ## Service Availability
 
-> **🕘 Monday – Saturday: 07:00 – 19:00 UK Time (GMT/BST)**
+> **🕘 Monday – Saturday: 24/7 (GMT/BST)**
 
 The hosted MCP server is available during these hours for public preview. Outside of these hours, the service may be offline for maintenance.
 
