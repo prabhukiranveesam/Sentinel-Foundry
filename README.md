@@ -200,6 +200,50 @@ Replace `YOUR_API_KEY` with the key provided to you.
 
 ---
 
+### Claude Code (VS Code extension / CLI)
+
+Claude Code speaks MCP natively over HTTP — but unlike VS Code Copilot Chat, it doesn't have a built-in Microsoft-account auth shortcut, and Microsoft Entra ID doesn't support the generic OAuth Dynamic Client Registration that a bare `claude mcp add --transport http` would try first (you'd see *"Incompatible auth server: does not support dynamic client registration"*). Sentinel Foundry publishes a pre-registered **public OAuth client** (PKCE, no secret) specifically so Claude Code can still get a real per-user Microsoft sign-in instead of falling back to a shared API key.
+
+**Recommended — real Microsoft sign-in, no shared key:**
+
+```bash
+claude mcp add --transport http \
+  --client-id b8461a21-8cb2-49a6-b2bb-81c0bac2e3cf \
+  --callback-port 8080 \
+  sentinel-foundry https://mcp.kiranlab.co.uk/sentinel
+```
+
+Or in `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "sentinel-foundry": {
+      "type": "http",
+      "url": "https://mcp.kiranlab.co.uk/sentinel",
+      "oauth": {
+        "clientId": "b8461a21-8cb2-49a6-b2bb-81c0bac2e3cf",
+        "callbackPort": 8080
+      }
+    }
+  }
+}
+```
+
+**Authenticate:**
+
+1. Open Claude Code in the project and run `/mcp` — it will open a browser to `login.microsoftonline.com` for the client above.
+2. Sign in with an Azure account that has the **Microsoft Sentinel Reader** and **Security Reader** roles (same requirement as the Copilot/Security Copilot flows above). Any Microsoft Entra tenant can sign in (the client is multi-tenant); the server matches your token to your own workspace's tenant automatically.
+3. Run `/mcp` again to confirm `sentinel-foundry` shows as connected, then try: *"Discover my Sentinel workspaces and connect automatically."*
+
+**Fallback — shared static API key (no per-user identity/audit):**
+
+If you can't use the manual-client_id flow above, the same `mcp-remote` static-key method shown in the Claude Desktop section works for Claude Code too — just add the `headers` block from that example to the `.mcp.json` entry above (in place of `oauth`).
+
+> Defender XDR Advanced Hunting (optional `headers.X-Security-Token`) works the same way here as in the VS Code Copilot section above — add it under the server's `headers` key in `.mcp.json`.
+
+---
+
 ### Microsoft Security Copilot
 
 Connect Sentinel Foundry as a custom plugin to build intelligent security agents in [Microsoft Security Copilot](https://securitycopilot.microsoft.com/).
