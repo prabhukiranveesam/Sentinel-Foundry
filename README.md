@@ -443,9 +443,9 @@ The hosted service at `mcp.kiranlab.co.uk` is enterprise-grade and protected aga
 
 ## Service Availability
 
-> **🕘 Monday – Saturday: 24/7 (GMT/BST)**
+> **🕘 Monday – Sunday: 24/7 (GMT/BST)**
 
-The hosted MCP server is available during these hours for public preview. Outside of these hours, the service may be offline for maintenance.
+The hosted MCP server is available during these hours for public preview.
 
 If you need extended availability or an enterprise SLA, please reach out via GitHub issues or the contact details in [TERMS.md](TERMS.md).
 
