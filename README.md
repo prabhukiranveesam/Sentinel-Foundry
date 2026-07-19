@@ -58,7 +58,7 @@ Every answer comes from **live Azure APIs** against your actual workspace — no
 
 ## What can it do?
 
-**43 tools** across every dimension of Sentinel operations:
+**52 tools** across every dimension of Sentinel operations:
 
 | What you ask | What happens |
 |---|---|
@@ -256,8 +256,8 @@ Save the following as `sentinel-foundry.yaml`:
 Descriptor:
   Name: SentinelFoundry
   DisplayName: Sentinel Foundry - MCP Server
-  Description: AI intelligence layer for Microsoft Sentinel — 43 tools for detection, cost, MITRE ATT&CK coverage, and threat hunting.
-  DescriptionForModel: Provides comprehensive Microsoft Sentinel workspace analysis tools including health scoring, MITRE ATT&CK coverage analysis, cost analysis, detection rule quality scoring, incident analysis, threat simulation, and executive reporting.
+  Description: AI intelligence layer for Microsoft Sentinel — 52 tools for detection, cost, MITRE ATT&CK coverage, detection backtesting, and threat hunting.
+  DescriptionForModel: Provides comprehensive Microsoft Sentinel workspace analysis tools including health scoring, MITRE ATT&CK coverage analysis, cost analysis, detection rule quality scoring, incident analysis, threat simulation, rule economics, detection backtesting, and executive reporting.
 SkillGroups:
 - Format: MCP
   Settings:
@@ -295,7 +295,7 @@ SkillGroups:
 
 <img src="https://learn.microsoft.com/en-us/azure/sentinel/datalake/media/sentinel-mcp/custom-copilot-search-tool.png" width="700" alt="Sentinel Foundry tools visible in tool search" />
 
-3. Add the plugin to your agent. All 43 Sentinel Foundry tools are now available in your Security Copilot agent.
+3. Add the plugin to your agent. All 52 Sentinel Foundry tools are now available in your Security Copilot agent.
 
 ---
 
@@ -377,7 +377,7 @@ Add the `headers` key to your MCP server entry in `settings.json`:
 | Tool | What it does |
 |---|---|
 | `diagnose_workspace` | Runs all modules in parallel, applies 10 correlation rules to identify root causes with score-impact estimates |
-| `analyze_value_efficiency` | Cross-references ingestion cost against active detection rules — shows tables you pay for but don't detect against |
+| `analyze_value_efficiency` | Table-centric: cross-references ingestion cost against active detection rules — shows tables you pay for but don't detect against. For rule-centric £/true-positive economics, see `analyze_rule_economics` below |
 | `simulate_attack` | Maps 77 MITRE ATT&CK v18 techniques across 11 scenarios to your available tables and enabled rules |
 | `generate_narrative` | Produces audience-calibrated narrative: board / CISO / SOC / technical |
 | `get_session_context` | Returns all findings from this session so follow-up prompts are instant |
@@ -385,7 +385,7 @@ Add the `headers` key to your MCP server entry in `settings.json`:
 </details>
 
 <details>
-<summary><strong>🛡️ Detection &amp; MITRE ATT&amp;CK (10 tools)</strong></summary>
+<summary><strong>🛡️ Detection &amp; MITRE ATT&amp;CK (12 tools)</strong></summary>
 
 | Tool | What it does |
 |---|---|
@@ -394,22 +394,27 @@ Add the `headers` key to your MCP server entry in `settings.json`:
 | `detect_gaps` | Identifies highest-priority uncovered tactics with business-impact explanation |
 | `score_detection_quality` | Per-rule quality scores across 5 dimensions |
 | `analyze_incidents` | Incident volume, MTTR, false-positive rate, top noisy rules, closure patterns |
-| `tune_detection_rules` | 30-day alert cross-reference → specific KQL exclusion patches with real entity values |
+| `tune_detection_rules` | 30-day alert cross-reference → specific KQL exclusion patches with real entity values (for a rule already deployed and firing) |
 | `suggest_detection_rules` | Generates ready-to-deploy KQL rules for uncovered MITRE techniques |
 | `suggest_hunting_queries` | Returns runnable KQL hunting queries for your available tables |
 | `generate_detection_rule` | AI-generates a new Sentinel analytics rule with KQL, severity, and MITRE mapping |
 | `generate_kql` | Generates ad-hoc KQL for any security investigation question |
+| `backtest_detection_rule` | **Prove it before you deploy it** — replays a candidate or existing rule's raw KQL against historical data, projects alert-volume noise, flags redundant MITRE coverage, and checks whether matched entities appeared in a real confirmed True Positive incident |
+| `analyze_detection_latency` | **Earliest-detectable-moment forensics** — mines closed True Positive incidents backwards through raw telemetry to find how much earlier they could have been caught, with a starter hunting query for that precursor signal |
 
 </details>
 
 <details>
-<summary><strong>💰 Cost &amp; Waste (3 tools)</strong></summary>
+<summary><strong>💰 Cost &amp; Waste (6 tools)</strong></summary>
 
 | Tool | What it does |
 |---|---|
 | `analyze_cost` | Reads actual billed GB from Azure Usage — monthly estimate, per-table breakdown, live regional pricing in your local currency (USD, GBP, EUR, AUD, JPY, CAD, INR, and more) |
 | `detect_waste` | Identifies over-ingested tables, verbose sources, and zero-value data streams |
 | `suggest_cost_optimizations` | Ranked savings plan with currency-specific estimates and effort ratings |
+| `suggest_tier_optimizations` | Data lake tier advisor — detection-aware per-table plan for Analytics / Basic / Auxiliary / Sentinel data lake tiers, with per-table £ savings and trade-off caveats |
+| `analyze_rule_economics` | Prices every enabled detection rule in £ per true positive — fair-share ingestion cost plus analyst triage cost, joined with real incident outcomes. Surfaces "dead spend": rules that fire with zero true positives |
+| `suggest_compensating_controls` | For every table `suggest_tier_optimizations` recommends moving, generates the summary rule / data lake KQL job that preserves its detection signal at near-zero cost — residual risk stated in £ and MITRE techniques |
 
 </details>
 
@@ -461,10 +466,13 @@ Sentinel Foundry MCP Server
      │   └──► Azure Resource Manager  (config, workbooks)     │
      │                                                        │
      └── Reasoning Layer ◄────────────────────────────────────┘
-         ├── Root Cause Engine  (10 correlation rules)
-         ├── Attack Simulation  (77 MITRE v18 techniques)
-         ├── Value Efficiency   (cost vs detection yield)
-         └── Narrative Engine   (board/CISO/SOC/technical)
+         ├── Root Cause Engine        (10 correlation rules)
+         ├── Attack Simulation        (77 MITRE v18 techniques)
+         ├── Detection Backtesting    (noise + MITRE overlap + TP replay)
+         ├── Detection Latency        (earliest-signal forensics)
+         ├── Rule Economics           (£ per true positive)
+         ├── Value Efficiency         (cost vs detection yield)
+         └── Narrative Engine         (board/CISO/SOC/technical)
      │
      ▼
 Structured response → HTML report / narrative / tool output
@@ -565,7 +573,7 @@ Sentinel Foundry is open-source and community-driven. We would love your help ma
 
 Sentinel Foundry is built on the [Model Context Protocol](https://modelcontextprotocol.io) — the open standard for connecting AI assistants to live data sources.
 
-**43 tools. 11 guided prompts. Full MITRE ATT&CK v18 coverage across all 14 enterprise tactics.**
+**52 tools. 11 guided prompts. Full MITRE ATT&CK v18 coverage across all 14 enterprise tactics.**
 
 The reasoning engine runs all analytical modules in parallel, applies 10 correlation rules, and tells you *why* your workspace is in its current state — not just what the numbers are.
 
