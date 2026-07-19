@@ -58,7 +58,7 @@ Every answer comes from **live Azure APIs** against your actual workspace — no
 
 ## What can it do?
 
-**52 tools** across every dimension of Sentinel operations:
+**56 tools** across every dimension of Sentinel operations:
 
 | What you ask | What happens |
 |---|---|
@@ -256,7 +256,7 @@ Save the following as `sentinel-foundry.yaml`:
 Descriptor:
   Name: SentinelFoundry
   DisplayName: Sentinel Foundry - MCP Server
-  Description: AI intelligence layer for Microsoft Sentinel — 52 tools for detection, cost, MITRE ATT&CK coverage, detection backtesting, and threat hunting.
+  Description: AI intelligence layer for Microsoft Sentinel — 56 tools for detection, cost, MITRE ATT&CK coverage, detection backtesting, NCSC CAF compliance, and threat hunting.
   DescriptionForModel: Provides comprehensive Microsoft Sentinel workspace analysis tools including health scoring, MITRE ATT&CK coverage analysis, cost analysis, detection rule quality scoring, incident analysis, threat simulation, rule economics, detection backtesting, and executive reporting.
 SkillGroups:
 - Format: MCP
@@ -295,7 +295,7 @@ SkillGroups:
 
 <img src="https://learn.microsoft.com/en-us/azure/sentinel/datalake/media/sentinel-mcp/custom-copilot-search-tool.png" width="700" alt="Sentinel Foundry tools visible in tool search" />
 
-3. Add the plugin to your agent. All 52 Sentinel Foundry tools are now available in your Security Copilot agent.
+3. Add the plugin to your agent. All 56 Sentinel Foundry tools are now available in your Security Copilot agent.
 
 ---
 
@@ -385,7 +385,7 @@ Add the `headers` key to your MCP server entry in `settings.json`:
 </details>
 
 <details>
-<summary><strong>🛡️ Detection &amp; MITRE ATT&amp;CK (12 tools)</strong></summary>
+<summary><strong>🛡️ Detection &amp; MITRE ATT&amp;CK (14 tools)</strong></summary>
 
 | Tool | What it does |
 |---|---|
@@ -401,6 +401,26 @@ Add the `headers` key to your MCP server entry in `settings.json`:
 | `generate_kql` | Generates ad-hoc KQL for any security investigation question |
 | `backtest_detection_rule` | **Prove it before you deploy it** — replays a candidate or existing rule's raw KQL against historical data, projects alert-volume noise, flags redundant MITRE coverage, and checks whether matched entities appeared in a real confirmed True Positive incident |
 | `analyze_detection_latency` | **Earliest-detectable-moment forensics** — mines closed True Positive incidents backwards through raw telemetry to find how much earlier they could have been caught, with a starter hunting query for that precursor signal |
+| `export_detections_as_code` | Snapshots every rule into a diffable JSON baseline to commit to your own git repo as the reviewed source of truth |
+| `audit_detection_drift` | Diffs a baseline against what's deployed now — flags silently-disabled rules and unreviewed reactivations, attributes who/when via Activity Log where available |
+
+</details>
+
+<details>
+<summary><strong>📜 Compliance (1 tool)</strong></summary>
+
+| Tool | What it does |
+|---|---|
+| `analyze_caf_compliance` | Maps posture onto all 14 official NCSC Cyber Assessment Framework (CAF 4.0) principles — the framework UK public sector, NHS, and council bodies actually report against, not MITRE ATT&CK. Honestly marks organizational-control principles (governance, risk process, supply chain, training, active hunting) as not-assessable from telemetry rather than faking evidence |
+
+</details>
+
+<details>
+<summary><strong>🔗 Interop (1 tool)</strong></summary>
+
+| Tool | What it does |
+|---|---|
+| `consult_microsoft_sentinel_mcp` | Connects to Microsoft's own hosted Sentinel MCP server as a client — lists or invokes its entity-risk and exposure/hunting-graph tools. A judgment layer over Microsoft's data, not a duplicate of it |
 
 </details>
 
@@ -573,7 +593,7 @@ Sentinel Foundry is open-source and community-driven. We would love your help ma
 
 Sentinel Foundry is built on the [Model Context Protocol](https://modelcontextprotocol.io) — the open standard for connecting AI assistants to live data sources.
 
-**52 tools. 11 guided prompts. Full MITRE ATT&CK v18 coverage across all 14 enterprise tactics.**
+**56 tools. 13 guided prompts. Full MITRE ATT&CK v18 coverage across all 14 enterprise tactics.**
 
 The reasoning engine runs all analytical modules in parallel, applies 10 correlation rules, and tells you *why* your workspace is in its current state — not just what the numbers are.
 
