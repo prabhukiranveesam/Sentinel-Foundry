@@ -100,7 +100,7 @@ To add Sentinel Foundry custom tools in Visual Studio Code, follow these steps:
    
    b. Choose **HTTP** (HTTP or Server-Sent Events).
 
-   <img width="59" height="204" alt="mcp-get-started-http" src="https://github.com/user-attachments/assets/d2af653f-0e8d-4def-8aa1-cc31b7a0b839" />
+   <img width="599" height="204" alt="mcp-get-started-http" src="https://github.com/user-attachments/assets/d2af653f-0e8d-4def-8aa1-cc31b7a0b839" />
    
    c. Enter the URL as `https://mcp.kiranlab.co.uk/sentinel` to add our custom tools, then press Enter.
 
@@ -347,7 +347,18 @@ Add the `headers` key to your MCP server entry in `settings.json`:
 ## Tool Categories
 
 <details>
-<summary><strong>🔎 Schema &amp; Tables (5 tools)</strong></summary>
+<summary><strong>🔌 Workspace Connection (3 tools)</strong></summary>
+
+| Tool | What it does |
+|---|---|
+| `discover_workspaces` | Auto-detects every Sentinel-enabled workspace your signed-in Azure account can see, across all subscriptions — no IDs to type |
+| `get_workspace` | Shows which workspace is currently active for this session (demo vs. your own) |
+| `set_workspace` | Manually connects to a specific workspace by subscription ID, resource group, and workspace name |
+
+</details>
+
+<details>
+<summary><strong>🔎 Schema &amp; Tables (6 tools)</strong></summary>
 
 | Tool | What it does |
 |---|---|
@@ -356,6 +367,7 @@ Add the `headers` key to your MCP server entry in `settings.json`:
 | `get_sample_logs` | Returns recent sample rows from a table |
 | `list_data_connectors` | Lists all configured data connectors with health status |
 | `classify_tables` | Categorises tables by security domain (Identity, Endpoint, Network, Cloud, Application) |
+| `assess_table` | Deep "what can I build from this table?" inventory — reads real column schema, detects semantic roles, maps to MITRE techniques, and generates only the detections not already covered |
 
 </details>
 
@@ -372,11 +384,12 @@ Add the `headers` key to your MCP server entry in `settings.json`:
 </details>
 
 <details>
-<summary><strong>🧠 Reasoning &amp; Intelligence (5 tools)</strong></summary>
+<summary><strong>🧠 Reasoning &amp; Intelligence (6 tools)</strong></summary>
 
 | Tool | What it does |
 |---|---|
 | `diagnose_workspace` | Runs all modules in parallel, applies 10 correlation rules to identify root causes with score-impact estimates |
+| `run_multi_agent_assessment` | The all-in-one assessment — runs four specialist agents in parallel (Posture, Threat, Cost, AI Agent Security) and correlates their outputs into cross-agent insights no single tool can produce |
 | `analyze_value_efficiency` | Table-centric: cross-references ingestion cost against active detection rules — shows tables you pay for but don't detect against. For rule-centric £/true-positive economics, see `analyze_rule_economics` below |
 | `simulate_attack` | Maps 77 MITRE ATT&CK v18 techniques across 11 scenarios to your available tables and enabled rules |
 | `generate_narrative` | Produces audience-calibrated narrative: board / CISO / SOC / technical |
@@ -425,6 +438,17 @@ Add the `headers` key to your MCP server entry in `settings.json`:
 </details>
 
 <details>
+<summary><strong>🤖 AI Agent Security (3 tools)</strong></summary>
+
+| Tool | What it does |
+|---|---|
+| `analyze_ai_agent_security` | Assesses the AI-agent / non-human identity attack surface — the newest Secure Vision Score pillar. Checks agent telemetry ingestion, service principal/managed identity hygiene, and whether any rule actually watches agent activity |
+| `list_ai_agent_identities` | Lists the most active service principals and managed identities over the last 7 days, with sign-in volume, failures, and distinct source IPs |
+| `suggest_ai_agent_detections` | Ready-to-deploy KQL rules for the agentic attack surface — dormant SPN reactivation, mass Graph access, credential-add-then-use, and more — filtered to what your workspace actually ingests |
+
+</details>
+
+<details>
 <summary><strong>💰 Cost &amp; Waste (6 tools)</strong></summary>
 
 | Tool | What it does |
@@ -451,13 +475,15 @@ Add the `headers` key to your MCP server entry in `settings.json`:
 </details>
 
 <details>
-<summary><strong>🤖 Automation &amp; Reporting (8 tools)</strong></summary>
+<summary><strong>🤖 Automation &amp; Reporting (10 tools)</strong></summary>
 
 | Tool | What it does |
 |---|---|
 | `suggest_automations` | Identifies automation opportunities from incident patterns with Logic App templates |
+| `generate_playbook` | Generates a deployable Azure Logic App ARM template for one of 6 response scenarios (enrich incident, notify Teams, block user, block IP, create ticket, isolate device) |
 | `suggest_improvements` | Prioritised improvement roadmap across all pillars |
 | `suggest_notebooks` | Recommends Jupyter notebooks for investigation workflows |
+| `generate_notebook` | Generates a ready-to-run Jupyter notebook (.ipynb) pre-populated with KQL for a chosen scenario — threat hunting, incident investigation, user investigation, cost analysis, or detection tuning |
 | `generate_executive_report` | Executive HTML summary with score rings and metric cards |
 | `generate_soc_report` | SOC operational report with actionable items |
 | `generate_engineering_report` | Technical engineering report for the security team |
