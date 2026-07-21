@@ -174,6 +174,17 @@ Add the `headers` key to your MCP server entry in `settings.json`:
 }
 ```
 
+**Optional — Microsoft Sentinel Data Lake access:**
+
+Sentinel Foundry's `consult_microsoft_sentinel_mcp` tool can call through to Microsoft's own hosted Sentinel MCP server for direct data-lake-tier queries and entity/exposure-graph tools — but VS Code's built-in Azure sign-in only ever holds a token scoped to `management.azure.com`, and that can't be exchanged for a different Microsoft resource. So from VS Code Copilot, that passthrough tool isn't reachable (it explains this rather than failing silently).
+
+The simple fix — no extra config on Sentinel Foundry's side — is to add Microsoft's Sentinel MCP server as a **second, independent** MCP connection, exactly as described in [Microsoft's own VS Code guide](https://learn.microsoft.com/en-us/azure/sentinel/datalake/sentinel-mcp-use-tool-visual-studio-code):
+
+1. `Ctrl+Shift+P` → **MCP: Add Server** → **HTTP** → enter Microsoft's collection URL (e.g. `https://sentinel.microsoft.com/mcp/data-exploration`) → sign in with an account that has at least **Security Reader**.
+2. VS Code now runs both servers side by side. Copilot Chat can call Sentinel Foundry's 56 reasoning/cost/detection tools *and* Microsoft's native data-lake tools in the same conversation — no proxying, no extra token exchange, and each server's tools show up separately under **Configure Tools**.
+
+This works for any workspace onboarded to the [Microsoft Sentinel data lake](https://learn.microsoft.com/azure/sentinel/datalake/sentinel-lake-onboarding). If you're on Claude Code, local stdio, or another MCP client that performs its own Azure AD token exchange, `consult_microsoft_sentinel_mcp` works directly instead — no second server needed.
+
 ---
 
 ### Claude Desktop
