@@ -486,7 +486,7 @@ Add the `headers` key to your MCP server entry in `settings.json`:
 </details>
 
 <details>
-<summary><strong>🤖 Automation &amp; Reporting (10 tools)</strong></summary>
+<summary><strong>🤖 Automation &amp; Reporting (8 tools)</strong></summary>
 
 | Tool | What it does |
 |---|---|
@@ -498,8 +498,8 @@ Add the `headers` key to your MCP server entry in `settings.json`:
 | `generate_executive_report` | Executive HTML summary with score rings and metric cards |
 | `generate_soc_report` | SOC operational report with actionable items |
 | `generate_engineering_report` | Technical engineering report for the security team |
-| `run_daily_assessment` | Lightweight daily posture snapshot |
-| `analyze_value_efficiency` | Cost vs detection yield — which ingestion is earning its cost |
+
+*(`run_daily_assessment` and `analyze_value_efficiency` also touch reporting, but are listed once each under Health & Security Posture and Reasoning & Intelligence above to avoid double-counting.)*
 
 </details>
 
